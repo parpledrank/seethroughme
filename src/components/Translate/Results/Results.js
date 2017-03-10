@@ -1,0 +1,1 @@
+// Results React Component contain dropdown list and translate Results
