@@ -9,8 +9,9 @@ const app = express();
 
 app.use(cors());
 
-app.use(express.static(__dirname + '/../build'));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/../build'));
+
 
 routes(app);
 
