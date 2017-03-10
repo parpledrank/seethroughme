@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { IndexRoute, Router, Route, Link, browserHistory } from 'react-router';
 
 // import { BrowserRouter, Match, Miss } from 'react-router-dom';
-import Input from './components/Input';
-import Translate from './components/Translate'
+import Input from './components/Input/Input.js';
+import Translate from './components/Translate/Translate.js'
 import './styles/index.css';
 
 ReactDOM.render((
