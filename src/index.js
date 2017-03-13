@@ -12,4 +12,4 @@ ReactDOM.render((
     <Route path='/' component={Input} />
     <Route path='/translate' component={Translate} />
   </Router>
-), document.getElementById('root'));
+), document.getElementById('container'));
