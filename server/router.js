@@ -3,7 +3,7 @@ const requestHandlers = require('./requestHandlers.js');
 
 const router = express.Router();
 
-router.get('/upload', requestHandlers.uploadImgGetResultFromWatson);
+router.post('/upload', requestHandlers.vrHandler);
 
 module.exports = router;
   

@@ -9,7 +9,7 @@ import './styles/index.css';
 
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path='/' component={Input} />
+    <Route path='/' component={App} />
     <Route path='/translate' component={Translate} />
   </Router>
 ), document.getElementById('container'));
