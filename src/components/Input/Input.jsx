@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DragDrop from './DragDrop.jsx';
+import { browerHistory } from 'react-router';
 //import '../../styles/App.css';
 
 class Input extends Component {
@@ -9,15 +10,9 @@ class Input extends Component {
       url: ''
     }
 
-    this.checkForParentImgExists();
-    this.handleChangeImgURL = this.handleChangeImgURL.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleUrlUpdate = this.handleUrlUpdate.bind(this);
-  }
-
-  checkForParentImgExists(){
-    if (this.props.parentState.imgURL){
-      browserHistory.push('/translate');
-    }
+    console.log(this.props.handleImageSubmission)
   }
 
   handleUrlUpdate(event){
@@ -26,24 +21,28 @@ class Input extends Component {
     });
   }
 
-  handleChangeImgURL(event){
-    this.props.handleChangeImgURL(this.state.url);
+  handleClick(event){
+    this.props.changeParentUrl(this.state.url);
+    this.setState({
+      url: ''
+    });
   }
 
   render() {
     return (
       <div className="input">
         <div className="url-input">
-          <h2>Img Url</h2>
-          <input 
-            className="url-input-field"
-            type="text"
-            value={this.state.url}
-            onChange={this.handleUrlUpdate}
-          />
-          <button className="btn url-submit" onClick={this.handleChangeImgURL}>Submit</button>
+          <h2>Submit Picture</h2>
+            <input 
+              className="url-input-field"
+              type="text"
+              value={this.state.url}
+              onChange={this.handleUrlUpdate}
+            />
+          <button className="btn url-submit" onClick={this.handleClick}>Submit</button>
         </div>
-        <DragDrop handleChangeImgURL={this.props.handleChangeImgURL}/>
+
+        <DragDrop changeParentUrl={this.props.changeParentUrl} />
       </div>
     );
   }

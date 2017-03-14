@@ -2,31 +2,42 @@ import React from 'react';
 import Input from './Input/Input.jsx';
 import Translate from './Translate/Translate.js';
 import axios from 'axios';
+import { browserHistory } from 'react-router';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgURL: "",
-      img_results: []
+      imageURL: "",
+      keywords: []
     }
 
-    this.handleChangeImgURL = this.handleChangeImgURL.bind(this);
-    this.handleFetchIBMResults = this.handleFetchIBMResults.bind(this);
+    this.handleImageSubmission = this.handleImageSubmission.bind(this);
+    this.changeParentUrl = this.changeParentUrl.bind(this);
+    this.fetchIBM = this.fetchIBM.bind(this);
   }
 
-  handleChangeImgURL(url) {
-    this.setState({imgURL: url});
+  handleImageSubmission() {
+    if (this.state.imageURL.length > 0) {
+      console.log('State changed to: ', this.state.imageURL);
+      browserHistory.push('/translate');
+    }
   }
 
-  handleFetchIBMResults() {
+  changeParentUrl(url) {
+    this.setState({imageURL: url}, () => {
+      this.handleImageSubmission();
+    });
+  }
+
+  fetchIBM() {
     // if the image exists (has been updated by user giving img url or drop down a image) 
-    if (this.state.imgURL) {
-      axios.post('/api/upload', {url: this.state.imgURL})
+    if (this.state.imageURL) {
+      axios.post('/api/upload', {url: this.state.imageURL})
       .then(res => {
         console.log("In App.jsx, the response from request server /api/upload ", res);
         this.setState = {
-          img_results : res
+          keywords : res
         }
       })
       .catch(err => {
@@ -36,9 +47,15 @@ class App extends React.Component {
   }
 
   render() {
-    return (<div className="AppClass">
-          <Input handleChangeImgURL={this.handleChangeImgURL} handleFetchIBMResults={this.handleFetchIBMResults} parentState={this.state} />
-        </div>)
+    return (
+      <div className="AppClass">
+        <Input 
+        parentUrl={this.state.parentUrl} 
+        changeParentUrl={this.changeParentUrl} 
+        fetchIBM={this.fetchIBM} 
+        />
+      </div>
+    )
   }
 
 }

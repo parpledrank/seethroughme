@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import Axios from 'axios';
+import { browserHistory } from 'react-router';
 
 
 class DragDrop extends Component{
 
   constructor(props){
     super(props);
-    this.state = {
-      url: ''
-    }
-  }
 
-  handleChangeImgURL(url) {
-    this.props.handleChangeImgURL(url);
+    this.onDrop = this.onDrop.bind(this);
   }
 
   onDrop(acceptedFiles){
-    console.log(acceptedFiles);
-    axios.post('/upload', acceptedFiles)
-    .then(function(response){
-      //try to respond with an image URL
-      console.log(response);
-      this.handleChangeImgURL(response);
-    })
-    .catch(function(error){
-      console.log(error);
-    })
+    this.props.changeParentUrl(acceptedFiles[0].preview);
   }
 
   render(){
