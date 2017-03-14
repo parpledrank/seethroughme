@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node server/server.js",
+    "start": "nodemon server/server.js",
     "build": "webpack",
+    "build:watch": "webpack --watch",
     "test": "recho \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

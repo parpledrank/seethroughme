@@ -17,6 +17,7 @@ class DragDrop extends Component{
   }
 
   onDrop(acceptedFiles){
+    console.log(acceptedFiles);
     axios.post('/upload', acceptedFiles)
     .then(function(response){
       //try to respond with an image URL

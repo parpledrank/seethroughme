@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       imgURL: "",
-      imb_results: []
+      img_results: []
     }
 
     this.handleChangeImgURL = this.handleChangeImgURL.bind(this);
