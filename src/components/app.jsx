@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './Input/Input.js';
+import Input from './Input/Input.jsx';
 import Translate from './Translate/Translate.js';
 import axios from 'axios';
 
@@ -36,9 +36,11 @@ class App extends React.Component {
   }
 
   render() {
-    <div className="AppClass">
-      <Input handleChangeImgURL={this.handleChangeImgURL} handleFetchIBMResults={this.handleFetchIBMResults} parentState={this.state} />
-    </div>
+    return (<div className="AppClass">
+          <Input handleChangeImgURL={this.handleChangeImgURL} handleFetchIBMResults={this.handleFetchIBMResults} parentState={this.state} />
+        </div>)
   }
 
 }
+
+export default App;

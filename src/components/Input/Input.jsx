@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../../styles/App.css';
+import DragDrop from './DragDrop.jsx';
+//import '../../styles/App.css';
 
 class Input extends Component {
   constructor(props){
@@ -9,6 +10,8 @@ class Input extends Component {
     }
 
     this.checkForParentImgExists();
+    this.handleChangeImgURL = this.handleChangeImgURL.bind(this);
+    this.handleUrlUpdate = this.handleUrlUpdate.bind(this);
   }
 
   checkForParentImgExists(){
@@ -36,10 +39,11 @@ class Input extends Component {
             className="url-input-field"
             type="text"
             value={this.state.url}
-            onChange={this.handleUrlUpdate.bind(this)}
+            onChange={this.handleUrlUpdate}
           />
-          <button className="btn url-submit" onClick={this.handleUrlSubmit.bind(this)}>Submit</button>
-        </div> 
+          <button className="btn url-submit" onClick={this.handleChangeImgURL}>Submit</button>
+        </div>
+        <DragDrop handleChangeImgURL={this.props.handleChangeImgURL}/>
       </div>
     );
   }
