@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser')
-const { PORT } = require('./config');
+const { PORT }= require('./config');
 const apiRouter = require('./router.js');
 
 const app = express();
