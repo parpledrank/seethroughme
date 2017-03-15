@@ -14,6 +14,7 @@ class Translate extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     this.setState({
       keywords: this.props.keywords
     });

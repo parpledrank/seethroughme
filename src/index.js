@@ -13,10 +13,12 @@ class Root extends Component {
     super(props);
 
     this.state = {
-      keywords: []
+      keywords: [],
+      imgURL: ''
     }
 
     this.setRootKeywords = this.setRootKeywords.bind(this);
+    this.setRootUrl = this.setRootUrl.bind(this);
   }
 
   setRootKeywords(keywords) {
@@ -25,11 +27,22 @@ class Root extends Component {
     })
   }
 
+  setRootUrl(url) {
+    this.setState({ imgURL: url });
+  }
+
   render() {
     const { children } = this.props;
 
     return (
-      <div className="react-root">{ children && React.cloneElement(children, { setRootKeywords: this.setRootKeywords, keywords: this.state.keywords })}</div>
+      <div className="react-root">{ children && 
+        React.cloneElement(children, 
+        { setRootKeywords: this.setRootKeywords, 
+        keywords: this.state.keywords, 
+        setRootUrl: this.setRootUrl,
+        imgURL: this.state.imgURL 
+        })}
+      </div>
     )
   }
 }
