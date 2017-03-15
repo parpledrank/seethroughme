@@ -10348,6 +10348,7 @@ var Input = function (_Component) {
   }, {
     key: 'handleClick',
     value: function handleClick(event) {
+      event.preventDefault();
       this.props.changeParentUrl(this.state.url);
       this.setState({
         url: ''
@@ -10358,28 +10359,36 @@ var Input = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'input' },
+        { className: 'input-container' },
         _react2.default.createElement(
           'div',
           { className: 'url-input' },
           _react2.default.createElement(
-            'h2',
-            null,
-            'Submit Picture'
+            'div',
+            { className: 'input-header' },
+            'translate a picture'
           ),
-          _react2.default.createElement('input', {
-            className: 'url-input-field',
-            type: 'text',
-            value: this.state.url,
-            onChange: this.handleUrlUpdate
-          }),
           _react2.default.createElement(
-            'button',
-            { className: 'btn url-submit', onClick: this.handleClick },
-            'Submit'
+            'div',
+            { className: 'url-input-field' },
+            _react2.default.createElement(
+              'form',
+              { onSubmit: this.handleClick },
+              _react2.default.createElement('input', { className: 'input',
+                type: 'text',
+                value: this.state.url,
+                onChange: this.handleUrlUpdate,
+                placeholder: 'copy --> paste --> enter'
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-separator' },
+            '-- or --'
           )
         ),
-        _react2.default.createElement(_DragDrop2.default, { changeParentUrl: this.props.changeParentUrl })
+        _react2.default.createElement(_DragDrop2.default, { className: 'dragdrop-input', changeParentUrl: this.props.changeParentUrl })
       );
     }
   }]);
@@ -14926,7 +14935,7 @@ var App = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'AppClass' },
+        { className: 'app-container' },
         _react2.default.createElement(_Input2.default, {
           parentUrl: this.state.parentUrl,
           changeParentUrl: this.changeParentUrl,
@@ -35740,11 +35749,11 @@ var DragDrop = function (_Component) {
         { className: 'drop-zone' },
         _react2.default.createElement(
           _reactDropzone2.default,
-          { onDrop: this.onDrop },
+          { className: 'drop-zone-field', onDrop: this.onDrop },
           _react2.default.createElement(
             'div',
             { className: 'drop-zone-text' },
-            'Drop some files into here'
+            'drag a picture here (click me)'
           )
         )
       );
@@ -35765,7 +35774,7 @@ exports = module.exports = __webpack_require__(160)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif;\n}\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Inconsolata', monospace;\n}\n\nhtml,\nbody,\n#container,\n.react-root {\n  width: 100%;\n  height: 100%;\n}\n\n.app-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n}\n\n.input-container {\n  display: flex;\n  flex-direction: column-reverse;\n  max-width: 50%;\n}\n.url-input {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  order: 1;\n}\n\n.dragdrop-input {\n  order: 2;\n}\n\n\n/*--- flexbox for header and submit button center -------*/\n\n.input {\n  width: 250px;\n}\n\n.input-header {\n  order: 1;\n  margin: 0 0 10px 0;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #ff9068), color-stop(1, #fd746c) );\n  background-image: gradient( linear, left top, right top, color-stop(0, #ff9068), color-stop(0.15, #fd746c) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.url-input-field {\n  order: 2;\n}\n\n.input-separator {\n  order: 3;\n  margin: 10px;\n  font-size: .75em;\n}\n/*---- flexbox for dropzone text centering ------*/\n\n.drop-zone-field {\n  font-size: .75em;\n  width: 250px;\n  height: 50px;\n  border-style: dashed;\n  border-width: 1px;\n  border-radius: 5px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.drop-zone-field:hover {\n  cursor: pointer; cursor: hand;\n}\n\n.drop-zone-text {\n  order: 1;\n}\n\n", ""]);
 
 // exports
 
@@ -36097,7 +36106,7 @@ var Root = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'react-root' },
         children && _react2.default.cloneElement(children, { setRootKeywords: this.setRootKeywords, keywords: this.state.keywords })
       );
     }

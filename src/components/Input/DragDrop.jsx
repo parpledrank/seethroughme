@@ -19,8 +19,8 @@ class DragDrop extends Component{
   render(){
     return (
       <div className="drop-zone">
-        <Dropzone onDrop={this.onDrop}>
-          <div className="drop-zone-text">Drop some files into here</div>
+        <Dropzone className="drop-zone-field" onDrop={this.onDrop}>
+          <div className="drop-zone-text">drag a picture here (click me)</div>
         </Dropzone>
       </div>
     )
