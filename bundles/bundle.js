@@ -10419,7 +10419,7 @@ var _Imageview = __webpack_require__(303);
 
 var _Imageview2 = _interopRequireDefault(_Imageview);
 
-var _Results = __webpack_require__(304);
+var _Results = __webpack_require__(305);
 
 var _Results2 = _interopRequireDefault(_Results);
 
@@ -10450,6 +10450,7 @@ var Translate = function (_Component) {
   _createClass(Translate, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log(this.props);
       this.setState({
         keywords: this.props.keywords
       });
@@ -14937,6 +14938,7 @@ var App = function (_React$Component) {
       var _this3 = this;
 
       this.setState({ imageURL: url }, function () {
+        _this3.props.setRootUrl(_this3.state.imageURL);
         _this3.handleImageSubmission();
       });
     }
@@ -36115,10 +36117,12 @@ var Root = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Root.__proto__ || Object.getPrototypeOf(Root)).call(this, props));
 
     _this.state = {
-      keywords: []
+      keywords: [],
+      imgURL: ''
     };
 
     _this.setRootKeywords = _this.setRootKeywords.bind(_this);
+    _this.setRootUrl = _this.setRootUrl.bind(_this);
     return _this;
   }
 
@@ -36130,6 +36134,11 @@ var Root = function (_Component) {
       });
     }
   }, {
+    key: 'setRootUrl',
+    value: function setRootUrl(url) {
+      this.setState({ imgURL: url });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var children = this.props.children;
@@ -36138,7 +36147,11 @@ var Root = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'react-root' },
-        children && _react2.default.cloneElement(children, { setRootKeywords: this.setRootKeywords, keywords: this.state.keywords })
+        children && _react2.default.cloneElement(children, { setRootKeywords: this.setRootKeywords,
+          keywords: this.state.keywords,
+          setRootUrl: this.setRootUrl,
+          imgURL: this.state.imgURL
+        })
       );
     }
   }]);
@@ -36192,6 +36205,14 @@ exports.default = ImageView;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+// Create keyword component to display the result of IBM UR
+
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -36200,7 +36221,7 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Keyword = __webpack_require__(305);
+var _Keyword = __webpack_require__(304);
 
 var _Keyword2 = _interopRequireDefault(_Keyword);
 
@@ -36248,14 +36269,6 @@ var Results = function (_Component) {
 
   return Results;
 }(_react.Component);
-
-/***/ }),
-/* 305 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// Create keyword component to display the result of IBM UR
-
 
 /***/ }),
 /* 306 */
