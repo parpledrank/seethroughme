@@ -10419,6 +10419,10 @@ var _ImageView = __webpack_require__(300);
 
 var _ImageView2 = _interopRequireDefault(_ImageView);
 
+var _Results = __webpack_require__(305);
+
+var _Results2 = _interopRequireDefault(_Results);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10426,8 +10430,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import Results from './Results/Results.js';
 
 var Translate = function (_Component) {
   _inherits(Translate, _Component);
@@ -10468,6 +10470,11 @@ var Translate = function (_Component) {
           'div',
           null,
           _react2.default.createElement(_ImageView2.default, { imgURL: this.props.imgURL })
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_Results2.default, { keywords: this.state.keywords })
         )
       );
     }
@@ -36193,6 +36200,160 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: '/translate', component: _Translate2.default })
   )
 ), document.getElementById('container'));
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Keyword = function (_React$Component) {
+  _inherits(Keyword, _React$Component);
+
+  function Keyword(props) {
+    _classCallCheck(this, Keyword);
+
+    return _possibleConstructorReturn(this, (Keyword.__proto__ || Object.getPrototypeOf(Keyword)).call(this, props));
+  }
+
+  _createClass(Keyword, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "KeywordListContainer" },
+        _react2.default.createElement(
+          "table",
+          null,
+          _react2.default.createElement(
+            "tr",
+            null,
+            _react2.default.createElement(
+              "th",
+              null,
+              "Words"
+            ),
+            _react2.default.createElement(
+              "th",
+              null,
+              "Score"
+            )
+          ),
+          this.props.keywords.map(function (keyword, index) {
+            return _react2.default.createElement(
+              "tr",
+              { key: index },
+              _react2.default.createElement(
+                "td",
+                null,
+                keyword.class
+              ),
+              _react2.default.createElement(
+                "td",
+                null,
+                keyword.score
+              )
+            );
+          })
+        )
+      );
+    }
+  }]);
+
+  return Keyword;
+}(_react2.default.Component);
+
+exports.default = Keyword;
+
+// Alternative way render keyword list using div
+/*{this.props.keywords.map((keyword, index) => {
+  return (
+    <div className="KeywordContainer" key={index}>
+      <span className="Keyword">class: {keyword.class}&nbsp;</span>
+      <span className="Score">score: {keyword.score}</span>
+    </div>
+  );
+})}*/
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Keyword = __webpack_require__(304);
+
+var _Keyword2 = _interopRequireDefault(_Keyword);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Results React Component contain dropdown list and translate Results
+
+
+// import TranslateResult from './Translate/TranslateResult';
+
+var Results = function (_Component) {
+  _inherits(Results, _Component);
+
+  function Results(props) {
+    _classCallCheck(this, Results);
+
+    return _possibleConstructorReturn(this, (Results.__proto__ || Object.getPrototypeOf(Results)).call(this, props));
+  }
+
+  _createClass(Results, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_Keyword2.default, { keywords: this.props.keywords })
+        )
+      );
+    }
+  }]);
+
+  return Results;
+}(_react.Component);
+
+exports.default = Results;
 
 /***/ })
 /******/ ]);
