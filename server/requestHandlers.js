@@ -1,12 +1,14 @@
 const watson = require('watson-developer-cloud');
 const axios = require('axios');
+const utility = require('./utility.js');
 const { API_KEY_TRANSLATE, API_KEY_VR } = require('./config.js');
 
 const vrHandler = function(req, res, next) {
   console.log("/upload being called");
   const imgURL = req.body.url;
-  if (!imgURL) {
-    console.log("client didn't provide image url");
+  // check if the imgURL is empty or valid url
+  if (!imgURL || !utility.isValidUrl(imgURL)) {
+    console.log("client didn't provide image url or url is not valid");
     res.send("no-url");
     return;
   }
@@ -16,16 +18,16 @@ const vrHandler = function(req, res, next) {
     version_date: '2016-05-20'
   });
   const params = {
-    url: "http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg"
+    url: imgURL
   };
 
-  visual_recognition.classify(params, function (err, res) {
+  visual_recognition.classify(params, function (err, results) {
     if (err) {
       console.log(err);
     } else {
-      console.log(JSON.stringify(res, null, 2));
-      const result = res.images[0].classifiers[0].classes;
-      res.send(result);
+      console.log(results.images[0].classifiers[0].classes);
+      const keywords = results.images[0].classifiers[0].classes;
+      res.send(keywords);
       next();
     }
   })

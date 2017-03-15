@@ -20,39 +20,50 @@ class App extends React.Component {
   handleImageSubmission() {
     if (this.state.imageURL.length > 0) {
       console.log('State changed to: ', this.state.imageURL);
-      browserHistory.push('/translate');
+      this.fetchIBM(success => {
+        if (success) {
+          console.log("fetchIBM success the state.keywords ", this.state.keywords);
+          browserHistory.push('/translate');
+        } else {
+          console.log("fetchIBM failed");
+        }
+      });
+
     }
   }
 
   changeParentUrl(url) {
-    this.setState({imageURL: url}, () => {
+    this.setState({ imageURL: url }, () => {
       this.handleImageSubmission();
     });
   }
 
-  fetchIBM() {
+  // request server /api/upload to receive the ibm results
+  // allow passing callback
+  fetchIBM(cb) {
     // if the image exists (has been updated by user giving img url or drop down a image) 
     if (this.state.imageURL) {
-      axios.post('/api/upload', {url: this.state.imageURL})
-      .then(res => {
-        console.log("In App.jsx, the response from request server /api/upload ", res);
-        this.setState = {
-          keywords : res
-        }
-      })
-      .catch(err => {
-        console.log("In App.jsx, request server /api/upload");
-      })
+      axios.post('/api/upload', { url: this.state.imageURL })
+        .then(res => {
+          this.setState({ keywords: res.data }, () => {
+            cb(true);
+          })
+
+        })
+        .catch(err => {
+          console.log("In App.jsx, request server /api/upload");
+          cb(false);
+        })
     }
   }
 
   render() {
     return (
       <div className="AppClass">
-        <Input 
-        parentUrl={this.state.parentUrl} 
-        changeParentUrl={this.changeParentUrl} 
-        fetchIBM={this.fetchIBM} 
+        <Input
+          parentUrl={this.state.parentUrl}
+          changeParentUrl={this.changeParentUrl}
+          fetchIBM={this.fetchIBM}
         />
       </div>
     )
