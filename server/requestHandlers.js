@@ -49,9 +49,14 @@ const translateHandler = (req, res) => {
   })
 }
 
+const rerouteHandler = (req, res) => {
+  res.redirect('/');
+}
+
 module.exports = {
     vrHandler: vrHandler,
-    translateHandler: translateHandler
+    translateHandler: translateHandler,
+    rerouteHandler: rerouteHandler
 }
 
 
