@@ -14869,34 +14869,47 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'handleImageSubmission',
     value: function handleImageSubmission() {
+      var _this2 = this;
+
       if (this.state.imageURL.length > 0) {
         console.log('State changed to: ', this.state.imageURL);
-        _reactRouter.browserHistory.push('/translate');
+        this.fetchIBM(function (success) {
+          if (success) {
+            console.log("fetchIBM success the state.keywords ", _this2.state.keywords);
+            _reactRouter.browserHistory.push('/translate');
+          } else {
+            console.log("fetchIBM failed");
+          }
+        });
       }
     }
   }, {
     key: 'changeParentUrl',
     value: function changeParentUrl(url) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.setState({ imageURL: url }, function () {
-        _this2.handleImageSubmission();
+        _this3.handleImageSubmission();
       });
     }
+
+    // request server /api/upload to receive the ibm results
+    // allow passing callback
+
   }, {
     key: 'fetchIBM',
-    value: function fetchIBM() {
-      var _this3 = this;
+    value: function fetchIBM(cb) {
+      var _this4 = this;
 
       // if the image exists (has been updated by user giving img url or drop down a image) 
       if (this.state.imageURL) {
         _axios2.default.post('/api/upload', { url: this.state.imageURL }).then(function (res) {
-          console.log("In App.jsx, the response from request server /api/upload ", res);
-          _this3.setState = {
-            keywords: res
-          };
+          _this4.setState({ keywords: res.data }, function () {
+            cb(true);
+          });
         }).catch(function (err) {
           console.log("In App.jsx, request server /api/upload");
+          cb(false);
         });
       }
     }
