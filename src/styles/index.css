@@ -85,3 +85,16 @@ body,
   order: 1;
 }
 
+
+/* ------ Image View ------ */
+
+.image-view-container {
+  height: 400px;
+  width: 250px;
+  overflow: scroll;
+}
+
+img {
+  height: 400px;
+  width: auto;
+}

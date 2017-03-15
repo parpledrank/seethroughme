@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // ImageView Component only contains imageURL
 // Using Stateless style
 // Expect App.js pass imageURL data to ImageView
-function ImageView(props) {
+ const ImageView = (props) => {
+  //  console.log('in image view,' props.imgURL);
   return (
-    <div className="ImageBox">
-      <img src={props.imageURL} className="ImageView" />
+    <div className="image-view-container">
+      <img src={props.imgURL} className="image-view" />
     </div>
   )
 }
