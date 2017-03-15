@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ImageView from './ImageView/ImageView.js';
-// import Results from './Results/Results.js';
+import Results from './Results/Results.js';
 
 class Translate extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class Translate extends Component {
       <div>
         <div>Translate</div>
         <div><ImageView imgURL={this.props.imgURL} /></div>
-        {/*<div><Results keywords={this.state.keywords}/></div>*/}
+        <div><Results keywords={this.state.keywords}/></div>
       </div>
     );
   }
