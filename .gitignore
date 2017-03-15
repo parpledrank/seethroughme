@@ -5,3 +5,5 @@ node_modules/
 ./server/config.js/
 
 /build
+
+npm-debug.log

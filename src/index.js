@@ -29,7 +29,7 @@ class Root extends Component {
     const { children } = this.props;
 
     return (
-      <div>{ children && React.cloneElement(children, { setRootKeywords: this.setRootKeywords, keywords: this.state.keywords })}</div>
+      <div className="react-root">{ children && React.cloneElement(children, { setRootKeywords: this.setRootKeywords, keywords: this.state.keywords })}</div>
     )
   }
 }

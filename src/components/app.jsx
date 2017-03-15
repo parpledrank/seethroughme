@@ -63,7 +63,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="AppClass">
+      <div className="app-container">
         <Input
           parentUrl={this.state.parentUrl}
           changeParentUrl={this.changeParentUrl}

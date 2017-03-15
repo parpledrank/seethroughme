@@ -22,6 +22,7 @@ class Input extends Component {
   }
 
   handleClick(event){
+    event.preventDefault();
     this.props.changeParentUrl(this.state.url);
     this.setState({
       url: ''
@@ -30,19 +31,26 @@ class Input extends Component {
 
   render() {
     return (
-      <div className="input">
+      <div className="input-container">
         <div className="url-input">
-          <h2>Submit Picture</h2>
-            <input 
-              className="url-input-field"
-              type="text"
-              value={this.state.url}
-              onChange={this.handleUrlUpdate}
-            />
-          <button className="btn url-submit" onClick={this.handleClick}>Submit</button>
+          <div className="input-header">translate a picture</div>
+
+          <div className="url-input-field">
+            <form onSubmit={this.handleClick}>
+              <input className="input"
+                type="text"
+                value={this.state.url}
+                onChange={this.handleUrlUpdate}
+                placeholder="copy --> paste --> enter"
+              />
+            </form>
+          </div>
+
+          <div className="input-separator">-- or --</div>
         </div>
 
-        <DragDrop changeParentUrl={this.props.changeParentUrl} />
+
+        <DragDrop className="dragdrop-input" changeParentUrl={this.props.changeParentUrl} />
       </div>
     );
   }
