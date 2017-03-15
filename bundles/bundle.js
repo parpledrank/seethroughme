@@ -10419,10 +10419,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Translate = function (_Component) {
   _inherits(Translate, _Component);
 
-  function Translate() {
+  function Translate(props) {
     _classCallCheck(this, Translate);
 
-    return _possibleConstructorReturn(this, (Translate.__proto__ || Object.getPrototypeOf(Translate)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Translate.__proto__ || Object.getPrototypeOf(Translate)).call(this, props));
+
+    console.log(_this.props);
+    return _this;
   }
 
   _createClass(Translate, [{
@@ -14867,6 +14870,11 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      console.log('hello');
+    }
+  }, {
     key: 'handleImageSubmission',
     value: function handleImageSubmission() {
       var _this2 = this;
@@ -14876,7 +14884,7 @@ var App = function (_React$Component) {
         this.fetchIBM(function (success) {
           if (success) {
             console.log("fetchIBM success the state.keywords ", _this2.state.keywords);
-            _reactRouter.browserHistory.push('/translate');
+            _this2.props.setRootKeywords(_this2.state.keywords);
           } else {
             console.log("fetchIBM failed");
           }
@@ -36021,6 +36029,8 @@ function updateLink(linkElement, obj) {
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
@@ -36047,12 +36057,64 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 // import { BrowserRouter, Match, Miss } from 'react-router-dom';
+
+
+var Root = function (_Component) {
+  _inherits(Root, _Component);
+
+  function Root(props) {
+    _classCallCheck(this, Root);
+
+    var _this = _possibleConstructorReturn(this, (Root.__proto__ || Object.getPrototypeOf(Root)).call(this, props));
+
+    _this.state = {
+      keywords: []
+    };
+
+    _this.setRootKeywords = _this.setRootKeywords.bind(_this);
+    return _this;
+  }
+
+  _createClass(Root, [{
+    key: 'setRootKeywords',
+    value: function setRootKeywords(keywords) {
+      this.setState({ keywords: keywords }, function () {
+        _reactRouter.browserHistory.push('/translate');
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var children = this.props.children;
+
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        children && _react2.default.cloneElement(children, { setRootKeywords: this.setRootKeywords, keywords: this.state.keywords })
+      );
+    }
+  }]);
+
+  return Root;
+}(_react.Component);
+
 _reactDom2.default.render(_react2.default.createElement(
   _reactRouter.Router,
   { history: _reactRouter.browserHistory },
-  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/translate', component: _Translate2.default })
+  _react2.default.createElement(
+    _reactRouter.Route,
+    { path: '/', component: Root },
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _app2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/translate', component: _Translate2.default })
+  )
 ), document.getElementById('container'));
 
 /***/ })

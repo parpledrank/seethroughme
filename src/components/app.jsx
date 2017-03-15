@@ -17,13 +17,17 @@ class App extends React.Component {
     this.fetchIBM = this.fetchIBM.bind(this);
   }
 
+  componentDidUpdate() {
+    console.log('hello');
+  }
+
   handleImageSubmission() {
     if (this.state.imageURL.length > 0) {
       console.log('State changed to: ', this.state.imageURL);
       this.fetchIBM(success => {
         if (success) {
           console.log("fetchIBM success the state.keywords ", this.state.keywords);
-          browserHistory.push('/translate');
+          this.props.setRootKeywords(this.state.keywords)
         } else {
           console.log("fetchIBM failed");
         }
