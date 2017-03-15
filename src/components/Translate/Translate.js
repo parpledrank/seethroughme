@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
-//import '../../styles/App.css';
+import ImageView from './ImageView/Imageview';
+import Results from './Results/Results';
 
 class Translate extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props);
+    this.state = {
+      keywords: []
+    }
+
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
+
+  componentDidMount() {
+    this.setState({
+      keywords: this.props.keywords
+    });
+  }
+
   render() {
     return (
-      <div>Translate</div>
+      <div>
+        <div>Translate</div>
+        <div><ImageView /></div>
+        <div><Results keywords={this.state.keywords}/></div>
+      </div>
     );
   }
 }
