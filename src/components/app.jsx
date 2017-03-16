@@ -38,6 +38,7 @@ class App extends React.Component {
 
   changeParentUrl(url) {
     this.setState({ imageURL: url }, () => {
+      this.props.setRootUrl(this.state.imageURL);
       this.handleImageSubmission();
     });
   }
