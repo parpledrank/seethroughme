@@ -10,9 +10,9 @@ class Results extends Component {
 
   render() {
     return (
-      <div>
-        <div><Keyword keywords={this.props.keywords} /></div>
-        <div><TranslateResult keywords={this.props.keywords} /></div>
+      <div className="results-container">
+        <div className="keyword-item"><Keyword keywords={this.props.keywords} /></div>
+        <div className="results-item"><TranslateResult keywords={this.props.keywords} /></div>
       </div>
     )
   }

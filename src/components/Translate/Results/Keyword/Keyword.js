@@ -7,15 +7,18 @@ class Keyword extends React.Component {
   
   render() {
     return (
-      <div className="KeywordListContainer">
-        {this.props.keywords.map((keyword, index) => {
-          return (
-            <div className="KeywordContainer" key={index}>
-              <span className="Keyword">word: {keyword.class}&nbsp;</span>
-              <span className="Score">likelihood: {keyword.score}</span>
-            </div>
-          );
-        })}
+      <div>
+        <div className="source-language">source language</div>
+        <div>
+          {this.props.keywords.map((keyword, index) => {
+            return (
+              <div className="keyword" key={index}>
+                <div className>{`${keyword.class} (${keyword.score})`}</div>
+                {/*<div className="Score">likelihood: {keyword.score}</div>*/}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
