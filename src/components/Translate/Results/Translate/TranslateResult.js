@@ -53,17 +53,19 @@ class TranslateResult extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <select name="languagelist" form="languageform" onChange={this.onDropdownSelect}>
-            <option value="English">English</option>
-            <option value="Spanish">Spanish</option>
-            <option value="Chinese">Chinese</option>
-            <option value="French">French</option>
-          </select>
+      <div className="translation-results-container">
+        <div className="dropdown-item">
+          <div className="target-language">
+            <span>target language </span>
+            <select name="languagelist" form="languageform" onChange={this.onDropdownSelect}>
+              <option value="English">English</option>
+              <option value="Spanish">Spanish</option>
+              <option value="Chinese">Chinese</option>
+              <option value="French">French</option>
+            </select>
+          </div>
         </div>
-        <div>Translated Text</div>
-        <div>
+        <div className="translated-item">
           {this.state.translatedKeywords.map((keyword) => {
             return (
               <div>{keyword}</div>

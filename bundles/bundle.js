@@ -10469,21 +10469,25 @@ var Translate = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'translate-container' },
         _react2.default.createElement(
           'div',
-          null,
-          'Translate'
+          { className: 'translate-header' },
+          'translation results'
         ),
         _react2.default.createElement(
           'div',
-          null,
-          _react2.default.createElement(_ImageView2.default, { imgURL: this.props.imgURL })
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(_Results2.default, { keywords: this.state.keywords })
+          { className: 'translate-components' },
+          _react2.default.createElement(
+            'div',
+            { className: 'image-div' },
+            _react2.default.createElement(_ImageView2.default, { imgURL: this.props.imgURL })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'results-div' },
+            _react2.default.createElement(_Results2.default, { keywords: this.state.keywords })
+          )
         )
       );
     }
@@ -35868,26 +35872,27 @@ var Keyword = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "KeywordListContainer" },
-        this.props.keywords.map(function (keyword, index) {
-          return _react2.default.createElement(
-            "div",
-            { className: "KeywordContainer", key: index },
-            _react2.default.createElement(
-              "span",
-              { className: "Keyword" },
-              "word: ",
-              keyword.class,
-              "\xA0"
-            ),
-            _react2.default.createElement(
-              "span",
-              { className: "Score" },
-              "likelihood: ",
-              keyword.score
-            )
-          );
-        })
+        null,
+        _react2.default.createElement(
+          "div",
+          { className: "source-language" },
+          "source language"
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          this.props.keywords.map(function (keyword, index) {
+            return _react2.default.createElement(
+              "div",
+              { className: "keyword", key: index },
+              _react2.default.createElement(
+                "div",
+                { className: true },
+                keyword.class + " (" + keyword.score + ")"
+              )
+            );
+          })
+        )
       );
     }
   }]);
@@ -35961,15 +35966,15 @@ var Results = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'results-container' },
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'keyword-item' },
           _react2.default.createElement(_Keyword2.default, { keywords: this.props.keywords })
         ),
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'results-item' },
           _react2.default.createElement(_TranslateResult2.default, { keywords: this.props.keywords })
         )
       );
@@ -36076,43 +36081,47 @@ var TranslateResult = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'translation-results-container' },
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'dropdown-item' },
           _react2.default.createElement(
-            'select',
-            { name: 'languagelist', form: 'languageform', onChange: this.onDropdownSelect },
+            'div',
+            { className: 'target-language' },
             _react2.default.createElement(
-              'option',
-              { value: 'English' },
-              'English'
+              'span',
+              null,
+              'target language '
             ),
             _react2.default.createElement(
-              'option',
-              { value: 'Spanish' },
-              'Spanish'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Chinese' },
-              'Chinese'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'French' },
-              'French'
+              'select',
+              { name: 'languagelist', form: 'languageform', onChange: this.onDropdownSelect },
+              _react2.default.createElement(
+                'option',
+                { value: 'English' },
+                'English'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'Spanish' },
+                'Spanish'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'Chinese' },
+                'Chinese'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'French' },
+                'French'
+              )
             )
           )
         ),
         _react2.default.createElement(
           'div',
-          null,
-          'Translated Text'
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
+          { className: 'translated-item' },
           this.state.translatedKeywords.map(function (keyword) {
             return _react2.default.createElement(
               'div',
@@ -36139,7 +36148,7 @@ exports = module.exports = __webpack_require__(160)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Inconsolata', monospace;\n}\n\nhtml,\nbody,\n#container,\n.react-root {\n  width: 100%;\n  height: 100%;\n}\n\n.app-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n}\n\n.input-container {\n  display: flex;\n  flex-direction: column-reverse;\n  max-width: 50%;\n}\n.url-input {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  order: 1;\n}\n\n.dragdrop-input {\n  order: 2;\n}\n\n\n/*--- flexbox for header and submit button center -------*/\n\n.input {\n  width: 250px;\n}\n\n.input-header {\n  order: 1;\n  margin: 0 0 10px 0;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #ff9068), color-stop(1, #fd746c) );\n  background-image: gradient( linear, left top, right top, color-stop(0, #ff9068), color-stop(0.15, #fd746c) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.url-input-field {\n  order: 2;\n}\n\n.input-separator {\n  order: 3;\n  margin: 10px;\n  font-size: .75em;\n}\n/*---- flexbox for dropzone text centering ------*/\n\n.drop-zone-field {\n  font-size: .75em;\n  width: 250px;\n  height: 50px;\n  border-style: dashed;\n  border-width: 1px;\n  border-radius: 5px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.drop-zone-field:hover {\n  cursor: pointer; cursor: hand;\n}\n\n.drop-zone-text {\n  order: 1;\n}\n\n\n/* ------ Image View ------ */\n\n.image-view-container {\n  height: 400px;\n  width: 250px;\n  overflow: scroll;\n}\n\nimg {\n  height: 400px;\n  width: auto;\n}", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Inconsolata', monospace;\n}\n\nhtml,\nbody,\n#container,\n.react-root {\n  width: 100%;\n  height: 100%;\n}\n\n.app-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n}\n\n.input-container {\n  display: flex;\n  flex-direction: column-reverse;\n  max-width: 50%;\n}\n.url-input {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  order: 1;\n}\n\n.dragdrop-input {\n  order: 2;\n}\n\n\n/*--- flexbox for header and submit button center -------*/\n\n.input {\n  width: 250px;\n}\n\n.input-header {\n  order: 1;\n  margin: 0 0 10px 0;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #ff9068), color-stop(1, #fd746c) );\n  background-image: gradient( linear, left top, right top, color-stop(0, #ff9068), color-stop(0.15, #fd746c) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.url-input-field {\n  order: 2;\n}\n\n.input-separator {\n  order: 3;\n  margin: 10px;\n  font-size: .75em;\n}\n/*---- flexbox for dropzone text centering ------*/\n\n.drop-zone-field {\n  font-size: .75em;\n  width: 250px;\n  height: 50px;\n  border-style: dashed;\n  border-width: 1px;\n  border-radius: 5px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.drop-zone-field:hover {\n  cursor: pointer; cursor: hand;\n}\n\n.drop-zone-text {\n  order: 1;\n}\n\n\n/* ------ Image View ------ */\n\n/*.image-view-container {\n  height: 400px;\n  width: 250px;\n  overflow: scroll;\n}*/\n\nimg {\n  border-radius: 8px;\n  max-height: 300px;\n  max-width: 225px; /* you can use % */\n}\n\n/* ------ Translate flexbox ------ */\n\n.translate-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n}\n\n.translate-header {\n  order: 1;\n  max-width: 50%;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(1, #1ce) );\n  background-image: gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(0.15, #1ce) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.translate-components {\n  display: flex;\n  width: 100%;\n  height: 35%;\n  align-items: center;\n  justify-content: center;\n  flex-direction:row;\n  order: 2;\n  max-width: 50%;\n}\n\n\n/* ------ Translate Components Flexbox ----- */\n\n.image-div {\n  order: 1;\n}\n\n.results-div {\n  order: 2;\n}\n\n/* ------ Results Flexbox ------ */\n\n.results-container {\n  display: flex;\n  flex-direction: row;\n}\n\n.keyword-item {\n  font-size: .9em;\n  margin: 0 0 0 75px;\n  height: 150px;\n  width: 225px;\n  order: 1;\n  display: flex;\n  /*justify-content: center;\n  align-items: center;*/\n}\n\n.keyword {\n  order: 1\n}\n\n.results-item {\n  font-size: .9em;\n  height: 150px;\n  width: 225px;\n  order: 2;\n  display: flex;\n  /*justify-content: center;\n  align-items: center;*/\n}\n\n\n/* ------ TranslationResults Flexbox ------- */\n\n.translation-results-container {\n  order: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.dropdown-item {\n  order: 1;\n}\n\n.translated-item {\n  order: 2;\n}\n\n/* -------- source / target language -------- */\n\n.source-language {\n  height: 22px;\n}\n.target-language {\n  height: 20px;\n}", ""]);
 
 // exports
 
