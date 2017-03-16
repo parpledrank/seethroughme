@@ -3,12 +3,28 @@ import React from 'react'
 class Keyword extends React.Component {
   constructor(props) {
     super(props);
-
   }
+  
   render() {
     return (
       <div className="KeywordListContainer">
-        <table>
+        {this.props.keywords.map((keyword, index) => {
+          return (
+            <div className="KeywordContainer" key={index}>
+              <span className="Keyword">word: {keyword.class}&nbsp;</span>
+              <span className="Score">likelihood: {keyword.score}</span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+export default Keyword;
+
+// Alternative way render keyword list using div
+        /*<table>
           <tr>
             <th>Words</th>
             <th>Score</th>
@@ -21,20 +37,4 @@ class Keyword extends React.Component {
               </tr>
             );
           })}
-        </table>
-      </div>
-    );
-  }
-}
-
-export default Keyword;
-
-// Alternative way render keyword list using div
-        /*{this.props.keywords.map((keyword, index) => {
-          return (
-            <div className="KeywordContainer" key={index}>
-              <span className="Keyword">class: {keyword.class}&nbsp;</span>
-              <span className="Score">score: {keyword.score}</span>
-            </div>
-          );
-        })}*/
+        </table>*/
