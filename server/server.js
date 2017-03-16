@@ -6,8 +6,10 @@ const { PORT }= require('./config');
 const apiRouter = require('./router.js');
 const requestHandlers = require('./requestHandlers.js');
 
+
 const app = express();
 const jsonParser = bodyParser.json();
+
 
 app.use(cors());
 
