@@ -2,6 +2,8 @@ const watson = require('watson-developer-cloud');
 const axios = require('axios');
 const utility = require('./utility.js');
 const { API_KEY_TRANSLATE, API_KEY_VR } = require('./config.js');
+const path = require('path');
+
 
 const vrHandler = function(req, res, next) {
   console.log("/upload being called");
@@ -27,6 +29,7 @@ const vrHandler = function(req, res, next) {
     } else {
       console.log(results.images[0].classifiers[0].classes);
       const keywords = results.images[0].classifiers[0].classes;
+
       res.send(keywords);
       next();
     }
@@ -68,10 +71,18 @@ const rerouteHandler = (req, res) => {
   res.redirect('/');
 }
 
+const uploadImage = (req, res, next)=>{
+  let file = req.files[0];
+  console.log('Uploaded image to \'' + file.path + '\'');
+  res.send(path.join('uploads', file.filename));
+
+}
+
 module.exports = {
     vrHandler: vrHandler,
     translateHandler: translateHandler,
-    rerouteHandler: rerouteHandler
+    rerouteHandler: rerouteHandler,
+    uploadImage: uploadImage
 }
 
 
