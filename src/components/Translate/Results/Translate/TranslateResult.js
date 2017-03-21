@@ -35,6 +35,16 @@ class TranslateResult extends Component {
       language = 'zh-CN';
     } else if (e.target.value === 'French') {
       language = 'fr';
+    } else if (e.target.value === 'Hindi') {
+      language = 'hi';
+    } else if (e.target.value === 'Korean') {
+      language = 'ko';
+    } else if (e.target.value === 'Hebrew') {
+      language = 'iw';
+    } else if (e.target.value === 'German') {
+      language = 'de';
+    } else if (e.target.value === 'Japanese') {
+      language = 'ja';
     }
 
     this.setState({
@@ -62,6 +72,11 @@ class TranslateResult extends Component {
               <option value="Spanish">Spanish</option>
               <option value="Chinese">Chinese</option>
               <option value="French">French</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Korean">Korean</option>
+              <option value="Hebrew">Hebrew</option>
+              <option value="German">German</option>
+              <option value="Japanese">Japanese</option>
             </select></th>
           </tr>
         </thead>

@@ -21,22 +21,17 @@ class DragDrop extends Component{
       .send(file)
       .end((err, res)=>{
       //we'll update this once we figure out hosting
-      // this.props.changeParentUrl('http://localhost:8080' + res.text);
+        this.props.changeParentUrl('http://104.236.153.154/' + res.text);
         this.setState({imgURL: res.text});
       });
   }
 
   render(){
     
-    let source = (this.state.imgURL.length) ? 'localhost:8080/' + this.state.imgURL : 'none';
+    // let source = (this.state.imgURL.length) ? 'localhost:8080/' + this.state.imgURL : 'none';
 
     return (
       <div className="drop-zone">
-        
-        <img src={this.state.imgURL} />
-        <br />
-        {'img source: ' + source}
-        <br />
 
         <Dropzone className="drop-zone-field" onDrop={this.onDrop}>
           <div className="drop-zone-text">drag a picture here (click me)</div>

@@ -1,5 +1,5 @@
 module.exports = {
   PORT: process.env.PORT || 8080,
   API_KEY_TRANSLATE: 'AIzaSyBEb2nG4J6FMbY-3cmXBWL9nCGWp-fsx78',
-  API_KEY_VR: '3936275c1ba6b366130abce63493b2250a8f24f1'
+  API_KEY_VR: 'f45de3b0f3b6dda19ddc38820298804b9a313fb2'
 }

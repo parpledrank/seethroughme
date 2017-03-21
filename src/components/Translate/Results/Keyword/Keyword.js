@@ -10,8 +10,8 @@ class Keyword extends React.Component {
       <table>
         <thead>
           <tr className="keyword-header">
-            <th>Words</th>
-            <th>Score</th>
+            <th>keywords</th>
+            <th>score</th>
           </tr>
         </thead>
         <tbody>
