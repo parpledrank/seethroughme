@@ -34,7 +34,7 @@ class TranslateResult extends Component {
     } else if (e.target.value === 'Chinese') {
       language = 'zh-CN';
     } else if (e.target.value === 'French') {
-      language ='fr';
+      language = 'fr';
     }
 
     this.setState({
@@ -42,37 +42,39 @@ class TranslateResult extends Component {
     }, () => {
       // console.log(this.state.keywords, this.state.targetLanguage);
       axios.post('/api/translate', { keywords: this.state.keywords, source: 'en', target: this.state.targetLanguage })
-      .then((result) => {
-        var translations = result.data.data.translations.map(v => v.translatedText);
-        this.setState({
-          translatedKeywords: translations
+        .then((result) => {
+          var translations = result.data.data.translations.map(v => v.translatedText);
+          this.setState({
+            translatedKeywords: translations
+          });
         });
-      });
     });
   }
 
   render() {
     return (
-      <div className="translation-results-container">
-        <div className="dropdown-item">
-          <div className="target-language">
-            <span>target language </span>
-            <select name="languagelist" form="languageform" onChange={this.onDropdownSelect}>
+      <table className="translation-results-container">
+        <thead className="dropdown-item">
+          <tr className="target-language">
+            <th><span>target language </span></th>
+            <th><select name="languagelist" form="languageform" onChange={this.onDropdownSelect}>
               <option value="English">English</option>
               <option value="Spanish">Spanish</option>
               <option value="Chinese">Chinese</option>
               <option value="French">French</option>
-            </select>
-          </div>
-        </div>
-        <div className="translated-item">
-          {this.state.translatedKeywords.map((keyword) => {
+            </select></th>
+          </tr>
+        </thead>
+        <tbody className="translated-item">
+          {this.state.translatedKeywords.map((keyword, index) => {
             return (
-              <div>{keyword}</div>
+              <tr key={index}>
+                <td>{keyword}</td>
+              </tr>
             )
           })}
-        </div>
-      </div>
+        </tbody>
+      </table>
     )
   }
 }
