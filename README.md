@@ -3,7 +3,7 @@
 - [demo](#demo)
 - [Sending Feedback](#sending-feedback)
 
-## Updating to New Releases
+## Demo
 
 http://104.236.153.154/
 
