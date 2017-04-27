@@ -55,11 +55,6 @@ const translateHandler = (req, res) => {
     res.send(results.data);
   });
 
-  // axios.get(url).then((results) => {
-  //   res.send(results);
-  // })
-
-  // res.send(url);
 }
 
 const rerouteHandler = (req, res) => {
