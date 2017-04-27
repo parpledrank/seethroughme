@@ -37,17 +37,12 @@ const vrHandler = function(req, res, next) {
 }
 
 const translateHandler = (req, res) => {
-  //JSO's notes to translateAPI
-  //on client side, req should be sent as an object with the following properties:
-  //keyword (word to be translate), source (source language) and target (target language);
+
   let { keywords, source, target } = req.body;
 
   console.log('keywords are: ', keywords);
   console.log('source is: ', source);
   console.log('target is: ', target);
-
-  //https://translation.googleapis.com/language/translate/v2?key=AIzaSyBEb2nG4J6FMbY-3cmXBWL9nCGWp-fsx78&source=en&target=de&q=Hello%20world&q=My%20name%20is%20Jeff&q=dog
-  //will need some function to transform source and target to values the api will accept (i.e. english should be 'en')
 
   let url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY_TRANSLATE}&source=${source}&target=${target}`;
 
