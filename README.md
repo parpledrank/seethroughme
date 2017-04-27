@@ -1,11 +1,6 @@
-## see through me (translation app)
+## see through me (image-based translation app)
 
-- [demo](#demo)
 - [Sending Feedback](#sending-feedback)
-
-## Demo
-
-http://104.236.153.154/
 
 ## Sending Feedback
 
