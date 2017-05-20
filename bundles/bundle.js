@@ -38367,14 +38367,12 @@ var DragDrop = function (_Component) {
       var _this2 = this;
 
       var file = new FormData();
-      file.append('westinFile', acceptedFiles[0]);
+      file.append('', acceptedFiles[0]);
       console.log('hey');
       _superagent2.default.post('/api/img').send(file).end(function (err, res) {
-        //we'll update this once we figure out hosting
         var result = JSON.parse(res.text);
-        console.log('result from imgur api is', result.data.link);
+
         _this2.props.changeParentUrl(result.data.link);
-        // this.props.changeParentUrl('localhost:8080/' + result.text);
         _this2.setState({ imgURL: result.data.link });
       });
     }

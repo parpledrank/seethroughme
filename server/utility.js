@@ -8,7 +8,7 @@ module.exports.isValidUrl = function(url) {
 };
 
 const multerStorageTemplate = multer.diskStorage({
-  destination: 'public/uploads/',
+  destination: path.join(__dirname, '../public/uploads/'),
   filename: (req, file, cb)=>{
     let fileName = path.parse(file.originalname).name;
     let fileExtension = path.parse(file.originalname).ext;
