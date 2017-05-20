@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import Request from 'superagent';
 import { browserHistory } from 'react-router';
+import axios from 'axios';
 
 
 class DragDrop extends Component{
@@ -17,12 +18,16 @@ class DragDrop extends Component{
   onDrop(acceptedFiles){
     let file = new FormData();
     file.append('westinFile', acceptedFiles[0]);
+    console.log('hey');
     Request.post('/api/img')
       .send(file)
       .end((err, res)=>{
       //we'll update this once we figure out hosting
-        this.props.changeParentUrl('http://104.236.153.154/' + res.text);
-        this.setState({imgURL: res.text});
+        let result = JSON.parse(res.text)
+        console.log('result from imgur api is', result.data.link)
+        this.props.changeParentUrl(result.data.link)
+        // this.props.changeParentUrl('localhost:8080/' + result.text);
+        this.setState({imgURL: result.data.link});
       });
   }
 
