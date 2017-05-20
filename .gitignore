@@ -7,3 +7,7 @@ server/config.js/
 /build
 
 npm-debug.log
+
+/public/uploads
+
+/server/db
