@@ -17,16 +17,14 @@ class DragDrop extends Component{
 
   onDrop(acceptedFiles){
     let file = new FormData();
-    file.append('westinFile', acceptedFiles[0]);
+    file.append('', acceptedFiles[0]);
     console.log('hey');
     Request.post('/api/img')
       .send(file)
       .end((err, res)=>{
-      //we'll update this once we figure out hosting
         let result = JSON.parse(res.text)
-        console.log('result from imgur api is', result.data.link)
+
         this.props.changeParentUrl(result.data.link)
-        // this.props.changeParentUrl('localhost:8080/' + result.text);
         this.setState({imgURL: result.data.link});
       });
   }
