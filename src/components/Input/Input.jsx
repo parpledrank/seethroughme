@@ -82,7 +82,7 @@ class Input extends Component {
                   type="text"
                   value={this.state.url}
                   onChange={this.handleUrlUpdate}
-                  placeholder="image url ..."
+                  placeholder="image url"
                 />
               </form>
             </div>
