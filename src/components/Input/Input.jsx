@@ -15,6 +15,11 @@ class Input extends Component {
     console.log(this.props.handleImageSubmission)
   }
 
+  componentDidMount() {
+    console.log(document.getElementsByClassName("input")[0]);
+    document.getElementsByClassName("input")[0].focus();
+  }
+
   handleUrlUpdate(event){
     this.setState({
       url: event.target.value
@@ -33,7 +38,7 @@ class Input extends Component {
     return (
       <div className="input-container">
         <div className="url-input">
-          <div className="input-header">translate a picture</div>
+          <div className="input-header">see through me</div>
 
           <div className="url-input-field">
             <form onSubmit={this.handleClick}>
@@ -41,12 +46,11 @@ class Input extends Component {
                 type="text"
                 value={this.state.url}
                 onChange={this.handleUrlUpdate}
-                placeholder="copy --> paste --> enter"
+                placeholder="image url ..."
               />
             </form>
           </div>
 
-          <div className="input-separator">-- or --</div>
         </div>
 
 
