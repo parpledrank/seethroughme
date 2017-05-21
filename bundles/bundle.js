@@ -10285,6 +10285,10 @@ var _DragDrop2 = _interopRequireDefault(_DragDrop);
 
 var _reactRouter = __webpack_require__(39);
 
+var _superagent = __webpack_require__(305);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10292,8 +10296,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-//import '../../styles/App.css';
 
 var Input = function (_Component) {
   _inherits(Input, _Component);
@@ -10304,16 +10306,56 @@ var Input = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
 
     _this.state = {
-      url: ''
+      url: '',
+      file: ''
     };
 
     _this.handleClick = _this.handleClick.bind(_this);
     _this.handleUrlUpdate = _this.handleUrlUpdate.bind(_this);
-    console.log(_this.props.handleImageSubmission);
+    _this.captureUploadedFile = _this.captureUploadedFile.bind(_this);
+    _this.onButtonClick = _this.onButtonClick.bind(_this);
     return _this;
   }
 
   _createClass(Input, [{
+    key: 'captureUploadedFile',
+    value: function captureUploadedFile(file) {
+      var _this2 = this;
+
+      this.setState({
+        file: file
+      }, function () {
+        console.log(_this2.state.file);
+      });
+    }
+  }, {
+    key: 'onButtonClick',
+    value: function onButtonClick() {
+      var _this3 = this;
+
+      var buttonClasses = document.getElementById("button-classes").classList;
+      if (!buttonClasses.contains("topAnimation")) {
+        buttonClasses.add("topAnimation");
+        setTimeout(function () {
+          buttonClasses.remove("topAnimation");
+        }, 1000);
+      }
+
+      if (this.state.url) {
+        this.props.changeParentUrl(this.state.url);
+        this.setState({
+          url: ''
+        });
+      } else if (this.state.file) {
+        _superagent2.default.post('/api/img').send(this.state.file).end(function (err, res) {
+          var result = JSON.parse(res.text);
+          _this3.props.changeParentUrl(result.data.link);
+        });
+      } else {
+        alert('Please provide some form of input.');
+      }
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       console.log(document.getElementsByClassName("input")[0]);
@@ -10340,31 +10382,52 @@ var Input = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'input-container' },
+        { className: 'input-page' },
         _react2.default.createElement(
           'div',
-          { className: 'url-input' },
+          { className: 'input-container' },
           _react2.default.createElement(
             'div',
-            { className: 'input-header' },
-            'see through me'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'url-input-field' },
+            { className: 'url-input' },
             _react2.default.createElement(
-              'form',
-              { onSubmit: this.handleClick },
-              _react2.default.createElement('input', { className: 'input',
-                type: 'text',
-                value: this.state.url,
-                onChange: this.handleUrlUpdate,
-                placeholder: 'image url ...'
-              })
+              'div',
+              { className: 'input-header' },
+              'see through me'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'url-input-field' },
+              _react2.default.createElement(
+                'form',
+                { onSubmit: this.handleClick },
+                _react2.default.createElement('input', { className: 'input',
+                  type: 'text',
+                  value: this.state.url,
+                  onChange: this.handleUrlUpdate,
+                  placeholder: 'image url ...'
+                })
+              )
             )
-          )
+          ),
+          _react2.default.createElement(_DragDrop2.default, {
+            className: 'dragdrop-input',
+            changeParentUrl: this.props.changeParentUrl,
+            captureUploadedFile: this.captureUploadedFile })
         ),
-        _react2.default.createElement(_DragDrop2.default, { className: 'dragdrop-input', changeParentUrl: this.props.changeParentUrl })
+        _react2.default.createElement(
+          'div',
+          { id: 'button', onClick: this.onButtonClick },
+          _react2.default.createElement(
+            'div',
+            { id: 'button-classes', className: 'top' },
+            _react2.default.createElement(
+              'span',
+              null,
+              'translate'
+            )
+          ),
+          _react2.default.createElement('div', { className: 'shadow' })
+        )
       );
     }
   }]);
@@ -38355,12 +38418,8 @@ var DragDrop = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (DragDrop.__proto__ || Object.getPrototypeOf(DragDrop)).call(this, props));
 
-    _this.state = {
-      imgURL: '',
-      file: ''
-    };
+    _this.state = {};
     _this.onDrop = _this.onDrop.bind(_this);
-    _this.onButtonClick = _this.onButtonClick.bind(_this);
     return _this;
   }
 
@@ -38369,37 +38428,11 @@ var DragDrop = function (_Component) {
     value: function onDrop(acceptedFiles) {
       var file = new FormData();
       file.append('', acceptedFiles[0]);
-      this.setState({
-        file: file
-      });
-    }
-  }, {
-    key: 'onButtonClick',
-    value: function onButtonClick() {
-      var _this2 = this;
-
-      console.log(this.state.file);
-      var buttonClasses = document.getElementById("button-classes").classList;
-      if (!buttonClasses.contains("topAnimation")) {
-        buttonClasses.add("topAnimation");
-        setTimeout(function () {
-          buttonClasses.remove("topAnimation");
-        }, 1000);
-      }
-
-      _superagent2.default.post('/api/img').send(this.state.file).end(function (err, res) {
-        var result = JSON.parse(res.text);
-
-        _this2.props.changeParentUrl(result.data.link);
-        _this2.setState({ imgURL: result.data.link });
-      });
+      this.props.captureUploadedFile(file);
     }
   }, {
     key: 'render',
     value: function render() {
-
-      // let source = (this.state.imgURL.length) ? 'localhost:8080/' + this.state.imgURL : 'none';
-
       return _react2.default.createElement(
         'div',
         { className: 'drop-zone' },
@@ -38411,20 +38444,6 @@ var DragDrop = function (_Component) {
             { className: 'drop-zone-text' },
             'upload image'
           )
-        ),
-        _react2.default.createElement(
-          'div',
-          { id: 'button', onClick: this.onButtonClick },
-          _react2.default.createElement(
-            'div',
-            { id: 'button-classes', className: 'top' },
-            _react2.default.createElement(
-              'span',
-              null,
-              'translate'
-            )
-          ),
-          _react2.default.createElement('div', { className: 'shadow' })
         )
       );
     }
@@ -38830,7 +38849,7 @@ exports = module.exports = __webpack_require__(164)(undefined);
 
 
 // module
-exports.push([module.i, "textarea, input, button { outline: none; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: 'Inconsolata', monospace;\n}\n\nhtml,\nbody,\n#container,\n.react-root {\n  width: 100%;\n  height: 100%;\n}\n\n.app-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n}\n\n.input-container {\n  display: flex;\n  flex-direction: column-reverse;\n  max-width: 50%;\n}\n.url-input {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  order: 1;\n}\n\n.dragdrop-input {\n  order: 2;\n}\n\n.drop-zone {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n}\n.button-container {\n  height: 50px;\n  width: 100px;\n}\n\n.top {\n  position: absolute;\n  height: 25px;\n  width: 100px;\n  background-color: #70b5ff;\n  border-radius: 5px;\n  z-index: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: white;\n  font-size: .8em;\n  /*font-family: Helvetica;*/\n}\n\ndiv.top:hover {\n  cursor: hand;\n  cursor: pointer;\n}\n\n.topAnimation {\n  animation: topAnimate 0.5s 1;\n}\n\n.shadow {\n  position: relative;\n  height: 25px;\n  width: 100px;\n  background-color: #5496ff;\n  border-radius: 5px;\n  z-index: 0;\n  top: 5px;\n}\n\n@keyframes topAnimate {\n  0% {\n    transform: translateY(0%);\n  }\n  50% {\n    transform: translateY(10%);\n  }\n  100% {\n    transform: translateY(0%);\n  }\n}\n\n\n/*--- flexbox for header and submit button center -------*/\n\n.input {\n  border: none;\n  width: 400px;\n  height: 20px;\n  font-size: .8em;\n  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);\n  transition: box-shadow .5s ease-in;\n}\n\n.input:focus {\n  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);\n  /*transition: box-shadow .5s ease-in;*/\n}\n\n.input::-webkit-input-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n.input:-ms-input-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n.input:-moz-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n.input::-moz-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n\n.input-header {\n  order: 1;\n  margin: 0 0 15px 0;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );\n  background-image: gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.url-input-field {\n  order: 2;\n}\n\n/*---- flexbox for dropzone text centering ------*/\n\n.drop-zone-field {\n  font-size: .8em;\n  width: 401px;\n  height: 20px;\n  border-style: dashed;\n  border-color: #d3d3d3;\n  border-width: 1px;\n  border-radius: 5px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 10px 0 15px 0;\n\n}\n\n.drop-zone-field:hover {\n  cursor: pointer; cursor: hand;\n}\n\n.drop-zone-text {\n  order: 1;\n}\n\n\n/* ------ Image View ------ */\n\n.image-view-container {\n  /*height: 400px;\n  width: 250px;\n  overflow: scroll;*/\n  padding-top: 25%;\n}\n\nimg {\n  border-radius: 8px;\n  max-height: 300px;\n  max-width: 225px; /* you can use % */\n}\n\n/* ------ Translate flexbox ------ */\n\n.translate-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n}\n\n.translate-header {\n  order: 1;\n  max-width: 50%;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(1, #1ce) );\n  background-image: gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(0.15, #1ce) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.translate-components {\n  display: flex;\n  width: 100%;\n  height: 165px;\n  align-items: center;\n  justify-content: center;\n  flex-direction:row;\n  order: 2;\n  max-width: 50%;\n}\n\n\n/* ------ Translate Components Flexbox ----- */\n\n.image-div {\n  order: 1;\n}\n\n.results-div {\n  order: 2;\n}\n\n/* ------ Results Flexbox ------ */\n\n.results-container {\n  display: flex;\n  flex-direction: row;\n}\n\n.keyword-item {\n  font-size: .9em;\n  margin: 0 0 0 55px;\n  height: 150px;\n  width: 225px;\n  order: 1;\n  display: flex;\n  /*justify-content: center;\n  align-items: center;*/\n}\n\n.keyword {\n  order: 1\n}\n\n.results-item {\n  font-size: .9em;\n  height: 150px;\n  width: 225px;\n  order: 2;\n  display: flex;\n  /*justify-content: center;\n  align-items: center;*/\n}\n\n\n/* ------ TranslationResults Flexbox ------- */\n\n.translation-results-container {\n  order: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.dropdown-item {\n  order: 1;\n}\n\n.translated-item {\n  order: 2;\n}\n\n/* -------- source / target language -------- */\n\n.source-language {\n  height: 22px;\n}\n.target-language {\n  height: 20px;\n}\n\n/* --------src/Keyword.js KeywordList Table -------- */\n\ntr.keyword-header {\n  height: 24px;\n}\n", ""]);
+exports.push([module.i, "textarea, input, button { outline: none; }\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: 'Inconsolata', monospace;\n}\n\nhtml,\nbody,\n#container,\n.react-root {\n  width: 100%;\n  height: 100%;\n}\n\n.app-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n}\n\n.input-page {\n  height: 100%;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n\n.input-container {\n  display: flex;\n  flex-direction: column-reverse;\n  max-width: 50%;\n}\n.url-input {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  order: 1;\n}\n\n.dragdrop-input {\n  order: 2;\n}\n\n.drop-zone {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n}\n.button-container {\n  height: 50px;\n  width: 100px;\n}\n\n.top {\n  position: absolute;\n  height: 25px;\n  width: 100px;\n  background-color: #70b5ff;\n  border-radius: 5px;\n  z-index: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: white;\n  font-size: .8em;\n  /*font-family: Helvetica;*/\n}\n\ndiv.top:hover {\n  cursor: hand;\n  cursor: pointer;\n}\n\n.topAnimation {\n  animation: topAnimate 0.5s 1;\n}\n\n.shadow {\n  position: relative;\n  height: 25px;\n  width: 100px;\n  background-color: #5496ff;\n  border-radius: 5px;\n  z-index: 0;\n  top: 5px;\n}\n\n@keyframes topAnimate {\n  0% {\n    transform: translateY(0%);\n  }\n  50% {\n    transform: translateY(10%);\n  }\n  100% {\n    transform: translateY(0%);\n  }\n}\n\n\n/*--- flexbox for header and submit button center -------*/\n\n.input {\n  border: none;\n  width: 400px;\n  height: 20px;\n  font-size: .8em;\n  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);\n  transition: box-shadow .2s ease-in;\n}\n\n.input:focus {\n  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);\n}\n\n.input::-webkit-input-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n.input:-ms-input-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n.input:-moz-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n.input::-moz-placeholder {\n  font-family: 'Inconsolata', monospace;\n}\n\n\n.input-header {\n  order: 1;\n  margin: 0 0 15px 0;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );\n  background-image: gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.url-input-field {\n  order: 2;\n}\n\n/*---- flexbox for dropzone text centering ------*/\n\n.drop-zone-field {\n  font-size: .8em;\n  width: 401px;\n  height: 20px;\n  border-style: dashed;\n  border-color: #d3d3d3;\n  border-width: 1px;\n  border-radius: 5px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 10px 0 15px 0;\n\n}\n\n.drop-zone-field:hover {\n  cursor: pointer; cursor: hand;\n}\n\n.drop-zone-text {\n  order: 1;\n}\n\n\n/* ------ Image View ------ */\n\n.image-view-container {\n  /*height: 400px;\n  width: 250px;\n  overflow: scroll;*/\n  padding-top: 25%;\n}\n\nimg {\n  border-radius: 8px;\n  max-height: 300px;\n  max-width: 225px; /* you can use % */\n}\n\n/* ------ Translate flexbox ------ */\n\n.translate-container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n}\n\n.translate-header {\n  order: 1;\n  max-width: 50%;\n  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(1, #1ce) );\n  background-image: gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(0.15, #1ce) );\n  color:transparent;\n  -webkit-background-clip: text;\n  background-clip: text;\n}\n\n.translate-components {\n  display: flex;\n  width: 100%;\n  height: 165px;\n  align-items: center;\n  justify-content: center;\n  flex-direction:row;\n  order: 2;\n  max-width: 50%;\n}\n\n\n/* ------ Translate Components Flexbox ----- */\n\n.image-div {\n  order: 1;\n}\n\n.results-div {\n  order: 2;\n}\n\n/* ------ Results Flexbox ------ */\n\n.results-container {\n  display: flex;\n  flex-direction: row;\n}\n\n.keyword-item {\n  font-size: .9em;\n  margin: 0 0 0 55px;\n  height: 150px;\n  width: 225px;\n  order: 1;\n  display: flex;\n  /*justify-content: center;\n  align-items: center;*/\n}\n\n.keyword {\n  order: 1\n}\n\n.results-item {\n  font-size: .9em;\n  height: 150px;\n  width: 225px;\n  order: 2;\n  display: flex;\n  /*justify-content: center;\n  align-items: center;*/\n}\n\n\n/* ------ TranslationResults Flexbox ------- */\n\n.translation-results-container {\n  order: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.dropdown-item {\n  order: 1;\n}\n\n.translated-item {\n  order: 2;\n}\n\n/* -------- source / target language -------- */\n\n.source-language {\n  height: 22px;\n}\n.target-language {\n  height: 20px;\n}\n\n/* --------src/Keyword.js KeywordList Table -------- */\n\ntr.keyword-header {\n  height: 24px;\n}\n", ""]);
 
 // exports
 
