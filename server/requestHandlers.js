@@ -1,26 +1,26 @@
-const watson = require('watson-developer-cloud');
-const axios = require('axios');
-const utility = require('./utility.js');
-const { API_KEY_TRANSLATE, API_KEY_VR, IMGUR_API_CLIENT } = require('./config.js');
-const path = require('path');
-const fs = require('fs');
+let watson = require('watson-developer-cloud');
+let axios = require('axios');
+let utility = require('./utility.js');
+let { API_KEY_TRANSLATE, API_KEY_VR, IMGUR_API_CLIENT } = require('./config.js');
+let path = require('path');
+let fs = require('fs');
 
-const vrHandler = function(req, res, next) {
+let vrHandler = function(req, res, next) {
   console.log("/upload being called");
-  const imgURL = req.body.url;
+  let imgURL = req.body.url;
   // check if the imgURL is empty or valid url
   if (!imgURL || !utility.isValidUrl(imgURL)) {
     console.log("client didn't provide image url or url is not valid");
     res.send("no-url");
     return;
   }
-  const visual_recognition = watson.visual_recognition({
+  let visual_recognition = watson.visual_recognition({
     api_key: API_KEY_VR,
     version: 'v3',
     version_date: '2016-05-20'
   });
 
-  const params = {
+  let params = {
     url: imgURL
   };
 
@@ -32,7 +32,7 @@ const vrHandler = function(req, res, next) {
     } else {
       console.log(results);
       // console.log(results.images[0].classifiers[0].classes);
-      const keywords = results.images[0].classifiers[0].classes;
+      let keywords = results.images[0].classifiers[0].classes;
 
       res.send(keywords);
       next();
@@ -40,7 +40,7 @@ const vrHandler = function(req, res, next) {
   })
 }
 
-const translateHandler = (req, res) => {
+let translateHandler = (req, res) => {
 
   let { keywords, source, target } = req.body;
 
@@ -56,16 +56,17 @@ const translateHandler = (req, res) => {
   })
 
   axios.get(url).then((results) => {
+    console.log('hey');
     res.send(results.data);
   });
 
 }
 
-const rerouteHandler = (req, res) => {
+let rerouteHandler = (req, res) => {
   res.redirect('/');
 }
 
-const uploadImage = (req, res, next)=>{
+let uploadImage = (req, res, next)=>{
   let file = req.files[0];
   console.log('Uploaded image to \'' + file.path + '\'');
 
@@ -86,7 +87,19 @@ const uploadImage = (req, res, next)=>{
     json: true
   };
 
-  axios(authOptions).then((results) => {res.send(results.data)}).catch((err) => { console.log(err)});
+  axios(authOptions)
+  .then((results) => 
+  {
+    fs.unlink(path.join(__dirname, `../public/uploads/${file.filename}`), (err) => {
+      if (err) {
+        console.log("failed to delete local image");
+      } else {
+        console.log("successfully deleted local image");
+      }
+    })
+    res.send(results.data);
+  })
+  .catch((err) => { console.log(err)});
 }
 
 module.exports = {

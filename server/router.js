@@ -1,11 +1,10 @@
-const express = require('express');
-const requestHandlers = require('./requestHandlers.js');
-const utility = require('./utility.js')
+let express = require('express');
+let requestHandlers = require('./requestHandlers.js');
+let utility = require('./utility.js')
 
-const router = express.Router();
+let router = express.Router();
 
 router.post('/upload', requestHandlers.vrHandler);
-
 
 router.use('/img', utility.fileParser.any());
 

@@ -1,15 +1,13 @@
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-const bodyParser = require('body-parser')
-const { PORT }= require('./config');
-const apiRouter = require('./router.js');
-const requestHandlers = require('./requestHandlers.js');
+let express = require('express');
+let path = require('path');
+let cors = require('cors');
+let bodyParser = require('body-parser')
+let { PORT }= require('./config');
+let apiRouter = require('./router.js');
+let requestHandlers = require('./requestHandlers.js');
 
-
-const app = express();
-const jsonParser = bodyParser.json();
-
+let app = express();
+let jsonParser = bodyParser.json();
 
 app.use(cors());
 
