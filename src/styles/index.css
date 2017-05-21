@@ -71,7 +71,6 @@ body,
   align-items: center;
   color: white;
   font-size: .8em;
-  /*font-family: Helvetica;*/
 }
 
 div.top:hover {
@@ -123,18 +122,22 @@ div.top:hover {
 
 .input::-webkit-input-placeholder {
   font-family: 'Inconsolata', monospace;
+  text-align: center;
 }
 
 .input:-ms-input-placeholder {
   font-family: 'Inconsolata', monospace;
+  text-align: center;
 }
 
 .input:-moz-placeholder {
   font-family: 'Inconsolata', monospace;
+  text-align: center;
 }
 
 .input::-moz-placeholder {
   font-family: 'Inconsolata', monospace;
+  text-align: center;
 }
 
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import Request from 'superagent';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 
@@ -24,7 +23,7 @@ class DragDrop extends Component{
     return (
       <div className="drop-zone">
         <Dropzone className="drop-zone-field" onDrop={this.onDrop}>
-          <div className="drop-zone-text">upload image</div>
+          <div className="drop-zone-text">image upload</div>
         </Dropzone>
       </div>
     )
