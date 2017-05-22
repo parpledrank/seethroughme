@@ -16,6 +16,7 @@ class TranslateResult extends Component {
     }
 
     this.onDropdownSelect = this.onDropdownSelect.bind(this);
+    this.onLanguageSelect = this.onLanguageSelect.bind(this);
   }
 
   componentWillMount() {
@@ -52,31 +53,60 @@ class TranslateResult extends Component {
     });
   }
 
+  onLanguageSelect(e) {
+    let languageSelection = languageDict[e.currentTarget.textContent];
+
+    axios.post('/api/translate', {keywords: this.state.keywords, source: 'en', target: languageSelection })
+    .then((result) => {
+      let translations = result.data.data.translations.map(v => v.translatedText);
+      this.setState({
+        translatedKeywords: translations
+      })
+    });
+  }
+
   render() {
     return (
-      <table className="translation-results-container">
-        <thead className="dropdown-item">
-          <tr className="target-language">
-            <th><span>target language </span></th>
-            <th><select name="languagelist" form="languageform" onChange={this.onDropdownSelect}>
-              {this.state.languagesArray.map((language) => {
-                return (
-                  <option key={language} value={language}>{language}</option>
-                )
-              })}
-            </select></th>
-          </tr>
-        </thead>
-        <tbody className="translated-item">
-          {this.state.translatedKeywords.map((keyword, index) => {
+      <div className="results-page">
+
+        <div className="results-select-language">
+          {this.state.languagesArray.map((language) => {
             return (
-              <tr key={index}>
-                <td>{keyword}</td>
-              </tr>
+              <div key={language} className="language-option" onClick={this.onLanguageSelect}>{language}</div>
             )
           })}
-        </tbody>
-      </table>
+
+          {/*<select name="languagelist" form="languageform" onChange={this.onDropdownSelect}>
+            {this.state.languagesArray.map((language) => {
+              return (
+                <option key={language} value={language}>{language}</option>
+              )
+            })}
+          </select>*/}
+        </div>
+
+        <table className="results-table">
+          <thead>
+            <tr>
+              <th className="words-header">words</th>
+              <th className="scores-header">scores</th>
+              <th className="translations-header">translations</th>
+            </tr>
+          </thead>
+          <tbody className="translated-item">
+            {this.props.keywords.map((keyword, index) => {
+              return (
+                <tr key={keyword.class}>
+                  <td>{keyword.class}</td>
+                  <td>{keyword.score}</td>
+                  <td>{this.state.translatedKeywords[index]}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+
+      </div>
     )
   }
 }

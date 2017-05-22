@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ImageView from './ImageView/ImageView.js';
 import Results from './Results/Results.js';
+import TranslateResult from './Results/Translate/TranslateResult.js'
 
 class Translate extends Component {
   constructor(props) {
@@ -25,10 +26,8 @@ class Translate extends Component {
         <div className="translate-header">
           <a className="translate-link" href="http://seethroughme.co">see through me</a>
         </div>
-        <div className="translate-components">
-          <div className="image-div"><ImageView imgURL={this.props.imgURL} /></div>
-          <div className="results-div"><Results keywords={this.state.keywords}/></div>
-        </div>
+
+        <TranslateResult keywords={this.state.keywords} />
       </div>
     );
   }

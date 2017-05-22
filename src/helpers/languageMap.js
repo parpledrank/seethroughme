@@ -21,7 +21,6 @@ let languageDict = {
   Georgian: 'ka',
   German: 'de',
   Greek: 'el',
-  'Haitian Creole': 'ht',
   Hebrew: 'iw',
   Hindi: 'hi',
   Hungarian: 'hu',
