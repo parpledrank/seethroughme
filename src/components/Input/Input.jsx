@@ -10,7 +10,8 @@ class Input extends Component {
       url: '',
       file: '',
       invalidFile: false,
-      processing: false
+      processing: false,
+      fileUploaded: false
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -26,7 +27,8 @@ class Input extends Component {
 
   captureUploadedFile(file) {
     this.setState({
-      file: file
+      file: file,
+      fileUploaded: true
     });
   }
   
@@ -57,11 +59,13 @@ class Input extends Component {
       this.setState({
         url: ''
       });
-    } else if (this.state.file) {
+    } else if (this.state.file) {      
       this.setState({
+        fileUploaded: false,
         invalidFile: false,
         processing: true
       });
+
 
       Request.post('/api/img')
       .send(this.state.file)
@@ -133,7 +137,9 @@ class Input extends Component {
         </div>
 
         {this.state.invalidFile ? <div className="error-message">Please provide valid image url (png or jpg) or image upload.</div> : null}
+        {this.state.fileUploaded ? <div className="uploaded-message">Image uploaded. Click 'translate' to continue.</div> : null}
         {this.state.processing ? <div className="success-message">Processing image ...</div> : null}
+        
         
         <div id="button" onClick={this.onButtonClick}>
           <div id="button-classes" className="top">

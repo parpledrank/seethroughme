@@ -37,7 +37,8 @@ body,
   margin: 0 0 20px 0;
 }
 
-.success-message {
+.success-message,
+.uploaded-message {
   font-size: .8em;
   color: #5496ff;
   margin: 0 0 20px 0;
