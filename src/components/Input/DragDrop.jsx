@@ -3,7 +3,6 @@ import Dropzone from 'react-dropzone';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 
-
 class DragDrop extends Component{
 
   constructor(props){
@@ -14,7 +13,6 @@ class DragDrop extends Component{
   }
 
   onDrop(acceptedFiles) {
-    console.log(acceptedFiles);
     let file = new FormData();
     file.append('sFile', acceptedFiles[0]);
     this.props.captureUploadedFile(file);

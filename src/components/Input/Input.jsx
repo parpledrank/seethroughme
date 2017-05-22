@@ -27,15 +27,12 @@ class Input extends Component {
   captureUploadedFile(file) {
     this.setState({
       file: file
-    }, () => {
-      for (let pair of file.entries()) {
-        console.log(pair[0], pair[1])
-      }
     });
   }
   
   onButtonClick() {
     let buttonClasses = document.getElementById("button-classes").classList;
+
     if (!buttonClasses.contains("topAnimation")) {
       buttonClasses.add("topAnimation")
       setTimeout(() => {
@@ -49,6 +46,7 @@ class Input extends Component {
           invalidFile: false,
           processing: true
         });
+        
         this.props.changeParentUrl(this.state.url);
       } else {
         this.setState({
@@ -101,7 +99,7 @@ class Input extends Component {
       } else {
         this.setState({
           invalidFile: true
-        })
+        });
       }
 
       this.setState({
