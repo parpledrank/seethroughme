@@ -10,6 +10,7 @@ module.exports.isValidUrl = function(url) {
 const multerStorageTemplate = multer.diskStorage({
   destination: path.join(__dirname, '../public/uploads/'),
   filename: (req, file, cb)=>{
+    console.log('in multer', file);
     let fileName = path.parse(file.originalname).name;
     let fileExtension = path.parse(file.originalname).ext;
     fileExtension = (fileExtension==='.jpg') ? '.jpeg' : '.jpg';
