@@ -21,7 +21,9 @@ class Input extends Component {
     this.setState({
       file: file
     }, () => {
-      console.log(this.state.file);
+      for (let pair of file.entries()) {
+        console.log(pair[0], pair[1])
+      }
     });
   }
   

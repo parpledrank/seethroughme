@@ -67,8 +67,8 @@ let rerouteHandler = (req, res) => {
 }
 
 let uploadImage = (req, res, next)=>{
+  console.log('uploadimage req', req);
   let file = req.files[0];
-  console.log('file is', file);
   // console.log('Uploaded image to \'' + file.path + '\'');
   // res.send(path.join('uploads', file.filename));
   // console.log('file is', file.filename);
