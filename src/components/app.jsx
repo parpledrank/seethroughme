@@ -17,22 +17,13 @@ class App extends React.Component {
     this.fetchIBM = this.fetchIBM.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log('- component did update');
-  }
-
   handleImageSubmission() {
     if (this.state.imageURL.length > 0) {
-      console.log('State changed to: ', this.state.imageURL);
       this.fetchIBM(success => {
         if (success) {
-          console.log("fetchIBM success the state.keywords ", this.state.keywords);
           this.props.setRootKeywords(this.state.keywords)
-        } else {
-          console.log("fetchIBM failed");
-        }
+        } 
       });
-
     }
   }
 
@@ -56,7 +47,6 @@ class App extends React.Component {
 
         })
         .catch(err => {
-          console.log("In App.jsx, request server /api/upload");
           cb(false);
         })
     }
