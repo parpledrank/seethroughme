@@ -15,6 +15,11 @@ class Input extends Component {
     this.handleUrlUpdate = this.handleUrlUpdate.bind(this);
     this.captureUploadedFile = this.captureUploadedFile.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.validateImageURL = this.validateImageURL.bind(this);
+  }
+
+  validateImageURL(url) {
+    return (url.match(/\.(jpeg|jpg|png)$/) != null);
   }
 
   captureUploadedFile(file) {
@@ -37,7 +42,14 @@ class Input extends Component {
     }
 
     if (this.state.url) {
-      this.props.changeParentUrl(this.state.url);
+      if (this.validateImageURL(this.state.url)) {
+        this.props.changeParentUrl(this.state.url);
+      } else {
+        setTimeout(() => {
+          alert("Not a valid image type.");
+        }, 1100);
+      }
+
       this.setState({
         url: ''
       });
@@ -49,7 +61,9 @@ class Input extends Component {
         this.props.changeParentUrl(result.data.link);
       });
     } else {
-      alert('Please provide some form of input.');
+      setTimeout(() => {
+        alert('Please provide some form of input.');
+      }, 1100)
     }
   }
 
