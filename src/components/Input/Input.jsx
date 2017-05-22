@@ -81,10 +81,19 @@ class Input extends Component {
 
   handleClick(event){
     event.preventDefault();
-    this.props.changeParentUrl(this.state.url);
-    this.setState({
-      url: ''
-    });
+    if (this.state.url) {
+      if (this.validateImageURL(this.state.url)) {
+        this.props.changeParentUrl(this.state.url);
+      } else {
+        this.setState({
+          invalidFile: true
+        })
+      }
+
+      this.setState({
+        url: ''
+      });
+    }
   }
 
   render() {
