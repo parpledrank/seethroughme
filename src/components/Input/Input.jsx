@@ -9,7 +9,8 @@ class Input extends Component {
     this.state = {
       url: '',
       file: '',
-      invalidFile: false
+      invalidFile: false,
+      processing: false
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -44,6 +45,10 @@ class Input extends Component {
 
     if (this.state.url) {
       if (this.validateImageURL(this.state.url)) {
+        this.setState({
+          invalidFile: false,
+          processing: true
+        });
         this.props.changeParentUrl(this.state.url);
       } else {
         this.setState({
@@ -55,6 +60,10 @@ class Input extends Component {
         url: ''
       });
     } else if (this.state.file) {
+      this.setState({
+        processing: true
+      });
+
       Request.post('/api/img')
       .send(this.state.file)
       .end((err, res)=>{
@@ -82,6 +91,11 @@ class Input extends Component {
     event.preventDefault();
     if (this.state.url) {
       if (this.validateImageURL(this.state.url)) {
+        this.setState({
+          invalidFile: false,
+          processing: true
+        });
+
         this.props.changeParentUrl(this.state.url);
       } else {
         this.setState({
@@ -120,6 +134,7 @@ class Input extends Component {
         </div>
 
         {this.state.invalidFile ? <div className="error-message">Please provide valid image url (png or jpg) or image upload.</div> : null}
+        {this.state.processing ? <div className="success-message">Processing image ...</div> : null}
         
         <div id="button" onClick={this.onButtonClick}>
           <div id="button-classes" className="top">

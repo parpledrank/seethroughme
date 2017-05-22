@@ -23,7 +23,9 @@ class Translate extends Component {
   render() {
     return (
       <div className="translate-container">
-        <div className="translate-header">results</div>
+        <div className="translate-header">
+          <a className="translate-link" href="http://seethroughme.co">see through me</a>
+        </div>
         <div className="translate-components">
           <div className="image-div"><ImageView imgURL={this.props.imgURL} /></div>
           <div className="results-div"><Results keywords={this.state.keywords}/></div>

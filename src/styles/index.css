@@ -37,6 +37,12 @@ body,
   margin: 0 0 20px 0;
 }
 
+.success-message {
+  font-size: .8em;
+  color: #5496ff;
+  margin: 0 0 20px 0;
+}
+
 .input-container {
   display: flex;
   flex-direction: column-reverse;
@@ -150,11 +156,11 @@ div.top:hover {
 
 
 .input-header {
-  font-size: 1.3em;
+  font-size: 1.6em;
   order: 1;
   margin: 0 0 20px 0;
-  background-image: -webkit-gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );
-  background-image: gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #F2994A), color-stop(1, #F2C94C) );
+  background-image: gradient( linear, left top, right top, color-stop(0, #F2994A), color-stop(1, #F2C94C) );
   color:transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -193,7 +199,7 @@ div.top:hover {
 /* ------ Image View ------ */
 
 img {
-  border-radius: 8px;
+  border-radius: 3px;
   max-height: 300px;
   max-width: 225px; /* you can use % */
 }
@@ -210,13 +216,22 @@ img {
 }
 
 .translate-header {
-  font-size: 1.3em;
+  font-size: 1.6em;
   order: 1;
   max-width: 50%;
   margin: 0 0 20px 0;
-  background-image: -webkit-gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );
-  background-image: gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C));
+  /*background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #F2994A), color-stop(1, #F2C94C) );
+  background-image: gradient( linear, left top, right top, color-stop(1, #F2994A), color-stop(1, #F2C94C));
   color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;*/
+}
+
+.translate-link {
+  text-decoration: none;
+  color:transparent;
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #F2994A), color-stop(1, #F2C94C) );
+  background-image: gradient( linear, left top, right top, color-stop(1, #F2994A), color-stop(1, #F2C94C));
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -229,7 +244,7 @@ img {
   justify-content: center;
   flex-direction:row;
   order: 2;
-  max-width: 50%;
+  min-width: 50%;
 }
 
 
