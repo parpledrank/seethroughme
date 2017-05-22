@@ -27,6 +27,7 @@ class Input extends Component {
 
   captureUploadedFile(file) {
     this.setState({
+      invalidFile: false,
       file: file,
       fileUploaded: true
     });
