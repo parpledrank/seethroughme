@@ -61,6 +61,7 @@ class Input extends Component {
       });
     } else if (this.state.file) {
       this.setState({
+        invalidFile: false,
         processing: true
       });
 
