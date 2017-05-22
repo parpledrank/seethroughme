@@ -144,7 +144,7 @@ div.top:hover {
 
 
 .input-header {
-  font-size: 1.5em;
+  font-size: 1.3em;
   order: 1;
   margin: 0 0 20px 0;
   background-image: -webkit-gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );

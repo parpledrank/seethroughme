@@ -52,7 +52,6 @@ class Input extends Component {
   }
 
   componentDidMount() {
-    console.log(document.getElementsByClassName("input")[0]);
     document.getElementsByClassName("input")[0].focus();
   }
 
