@@ -68,10 +68,9 @@ let rerouteHandler = (req, res) => {
 
 let uploadImage = (req, res, next)=>{
   let file = req.files[0];
-  console.log('Uploaded image to \'' + file.path + '\'');
-
+  // console.log('Uploaded image to \'' + file.path + '\'');
   // res.send(path.join('uploads', file.filename));
-  console.log('file is', file.filename);
+  // console.log('file is', file.filename);
 
   let params = {
     image: `http://104.236.153.154/uploads/${file.filename}`
