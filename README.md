@@ -3,7 +3,7 @@
 - [Sending Feedback](#sending-feedback)
 
 ## Screen Shot
-![](https://i.imgur.com/ANa1C6f.gif)
+![](https://i.imgur.com/J9MOK04.gif)
 
 ## Sending Feedback
 
