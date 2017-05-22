@@ -31,6 +31,12 @@ body,
   align-items: center;
 }
 
+.error-message {
+  font-size: .8em;
+  color: #F2994A;
+  margin: 0 0 20px 0;
+}
+
 .input-container {
   display: flex;
   flex-direction: column-reverse;
