@@ -12,6 +12,7 @@ const multerStorageTemplate = multer.diskStorage({
   filename: (req, file, cb)=>{
     console.log('in multer', file);
     let fileName = path.parse(file.originalname).name;
+    fileName = fileName.replace(/[\s]/g, "");
     let fileExtension = path.parse(file.originalname).ext;
     fileExtension = (fileExtension==='.jpg') ? '.jpeg' : '.jpg';
     cb(null, 'new-' + fileName + fileExtension);
