@@ -11,7 +11,6 @@ class Results extends Component {
   render() {
     return (
       <div className="results-container">
-        <div className="keyword-item"><Keyword keywords={this.props.keywords} /></div>
         <div className="results-item"><TranslateResult keywords={this.props.keywords} /></div>
       </div>
     )
