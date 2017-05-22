@@ -43,7 +43,6 @@ class Input extends Component {
     }
 
     if (this.state.url) {
-      console.log(this.validateImageURL(this.state.url));
       if (this.validateImageURL(this.state.url)) {
         this.props.changeParentUrl(this.state.url);
       } else {
