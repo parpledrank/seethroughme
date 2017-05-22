@@ -31,6 +31,12 @@ body,
   align-items: center;
 }
 
+.error-message {
+  font-size: .8em;
+  color: #F2994A;
+  margin: 0 0 20px 0;
+}
+
 .input-container {
   display: flex;
   flex-direction: column-reverse;
@@ -186,13 +192,6 @@ div.top:hover {
 
 /* ------ Image View ------ */
 
-.image-view-container {
-  /*height: 400px;
-  width: 250px;
-  overflow: scroll;*/
-  padding-top: 25%;
-}
-
 img {
   border-radius: 8px;
   max-height: 300px;
@@ -211,10 +210,12 @@ img {
 }
 
 .translate-header {
+  font-size: 1.3em;
   order: 1;
   max-width: 50%;
-  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(1, #1ce) );
-  background-image: gradient( linear, left top, right top, color-stop(0, #c0c0aa), color-stop(0.15, #1ce) );
+  margin: 0 0 20px 0;
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C) );
+  background-image: gradient( linear, left top, right top, color-stop(.5, #F2994A), color-stop(1, #F2C94C));
   color:transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -223,8 +224,8 @@ img {
 .translate-components {
   display: flex;
   width: 100%;
-  height: 165px;
-  align-items: center;
+  /*height: 165px;*/
+  align-items: flex-start;
   justify-content: center;
   flex-direction:row;
   order: 2;
@@ -236,6 +237,8 @@ img {
 
 .image-div {
   order: 1;
+  position: relative;
+  top: 10px;
 }
 
 .results-div {
@@ -304,4 +307,8 @@ img {
 
 tr.keyword-header {
   height: 24px;
+}
+
+th {
+  text-align: left;
 }

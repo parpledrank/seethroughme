@@ -8,13 +8,19 @@ class Input extends Component {
     super(props)
     this.state = {
       url: '',
-      file: ''
+      file: '',
+      invalidFile: false
     }
 
     this.handleClick = this.handleClick.bind(this);
     this.handleUrlUpdate = this.handleUrlUpdate.bind(this);
     this.captureUploadedFile = this.captureUploadedFile.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.validateImageURL = this.validateImageURL.bind(this);
+  }
+
+  validateImageURL(url) {
+    return (url.match(/\.(jpeg|jpg|png)$/) != null);
   }
 
   captureUploadedFile(file) {
@@ -37,7 +43,14 @@ class Input extends Component {
     }
 
     if (this.state.url) {
-      this.props.changeParentUrl(this.state.url);
+      if (this.validateImageURL(this.state.url)) {
+        this.props.changeParentUrl(this.state.url);
+      } else {
+        this.setState({
+          invalidFile: true
+        })
+      }
+
       this.setState({
         url: ''
       });
@@ -49,7 +62,9 @@ class Input extends Component {
         this.props.changeParentUrl(result.data.link);
       });
     } else {
-      alert('Please provide some form of input.');
+      this.setState({
+        invalidFile: true
+      });
     }
   }
 
@@ -65,10 +80,19 @@ class Input extends Component {
 
   handleClick(event){
     event.preventDefault();
-    this.props.changeParentUrl(this.state.url);
-    this.setState({
-      url: ''
-    });
+    if (this.state.url) {
+      if (this.validateImageURL(this.state.url)) {
+        this.props.changeParentUrl(this.state.url);
+      } else {
+        this.setState({
+          invalidFile: true
+        })
+      }
+
+      this.setState({
+        url: ''
+      });
+    }
   }
 
   render() {
@@ -95,6 +119,8 @@ class Input extends Component {
             captureUploadedFile={this.captureUploadedFile}/>
         </div>
 
+        {this.state.invalidFile ? <div className="error-message">Please provide valid image url (png or jpg) or image upload.</div> : null}
+        
         <div id="button" onClick={this.onButtonClick}>
           <div id="button-classes" className="top">
             <span>translate</span>
