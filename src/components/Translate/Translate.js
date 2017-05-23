@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ImageView from './ImageView/ImageView.js';
 import Results from './Results/Results.js';
-import TranslateResult from './Results/Translate/TranslateResult.js'
+import TranslateResult from './Results/Translate/TranslateResult.js';
+import { browserHistory } from 'react-router';
 
 class Translate extends Component {
   constructor(props) {
@@ -12,12 +13,19 @@ class Translate extends Component {
     }
 
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
 
   componentDidMount() {
+    window.onpopstate = this.onBackButtonEvent;
     this.setState({
       keywords: this.props.keywords
     });
+  }
+
+  onBackButtonEvent(e) {
+    e.preventDefault();
+    browserHistory.push('/');
   }
 
   render() {
