@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import languageDict from '../../../../helpers/languageMap.js';
+import { browserHistory } from 'react-router';
 
 class TranslateResult extends Component {
   constructor(props) {
@@ -20,10 +21,12 @@ class TranslateResult extends Component {
     this.onLanguageSelect = this.onLanguageSelect.bind(this);
     this.storeLanguageReference = this.storeLanguageReference.bind(this);
     this.scrollToLanguage = this.scrollToLanguage.bind(this);
+    this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
 
   componentDidMount() {
     document.body.onkeydown = this.scrollToLanguage;
+    window.onpopstate = this.onBackButtonEvent;
   }
 
   componentWillMount() {
@@ -58,7 +61,15 @@ class TranslateResult extends Component {
 
     if (e.keyCode >= lowerBound && e.keyCode <= upperBound) {
       this.languageMap[keyValue].scrollIntoView();
+    } else {
+      return true;
     }
+  }
+
+  onBackButtonEvent(e) {
+    console.log('going back');
+    e.preventDefault();
+    browserHistory.goBack();
   }
 
   onDropdownSelect(e) {
