@@ -21,12 +21,10 @@ class TranslateResult extends Component {
     this.onLanguageSelect = this.onLanguageSelect.bind(this);
     this.storeLanguageReference = this.storeLanguageReference.bind(this);
     this.scrollToLanguage = this.scrollToLanguage.bind(this);
-    this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
 
   componentDidMount() {
     document.body.onkeydown = this.scrollToLanguage;
-    window.onpopstate = this.onBackButtonEvent;
   }
 
   componentWillMount() {
@@ -66,12 +64,6 @@ class TranslateResult extends Component {
     }
   }
 
-  onBackButtonEvent(e) {
-    console.log('going back');
-    e.preventDefault();
-    browserHistory.goBack();
-  }
-
   onDropdownSelect(e) {
     let languageSelection = languageDict[e.target.value];
 
@@ -97,11 +89,12 @@ class TranslateResult extends Component {
   }
 
   storeLanguageReference(val) {
-    //lets access the first letter of the values innerHTML
-    const letter = val.innerHTML.charAt(0);
+    if (val) {
+      const letter = val.innerHTML.charAt(0);
 
-    if (!this.languageMap[letter]) {
-      this.languageMap[letter] = val;
+      if (!this.languageMap[letter]) {
+        this.languageMap[letter] = val;
+      }
     }
   }
 
