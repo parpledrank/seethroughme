@@ -15,8 +15,15 @@ class TranslateResult extends Component {
       languagesArray: []
     }
 
+    this.languageMap = {};
     this.onDropdownSelect = this.onDropdownSelect.bind(this);
     this.onLanguageSelect = this.onLanguageSelect.bind(this);
+    this.storeLanguageReference = this.storeLanguageReference.bind(this);
+    this.scrollToLanguage = this.scrollToLanguage.bind(this);
+  }
+
+  componentDidMount() {
+    document.body.onkeydown = this.scrollToLanguage;
   }
 
   componentWillMount() {
@@ -38,6 +45,19 @@ class TranslateResult extends Component {
       this.setState({
         keywords: mappedKeywords
       });
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('onkeydown', this.scrollToLanguage);
+  }
+
+  scrollToLanguage(e) {
+    const keyValue = String.fromCharCode(e.keyCode);
+    const lowerBound = 'A'.charCodeAt(0), upperBound = 'Z'.charCodeAt(0);
+
+    if (e.keyCode >= lowerBound && e.keyCode <= upperBound) {
+      this.languageMap[keyValue].scrollIntoView();
     }
   }
 
@@ -65,6 +85,15 @@ class TranslateResult extends Component {
     });
   }
 
+  storeLanguageReference(val) {
+    //lets access the first letter of the values innerHTML
+    const letter = val.innerHTML.charAt(0);
+
+    if (!this.languageMap[letter]) {
+      this.languageMap[letter] = val;
+    }
+  }
+
   render() {
     return (
       <div className="results-page">
@@ -72,17 +101,13 @@ class TranslateResult extends Component {
         <div className="results-select-language">
           {this.state.languagesArray.map((language) => {
             return (
-              <div key={language} className="language-option" onClick={this.onLanguageSelect}>{language}</div>
+              <div 
+                key={language} 
+                className="language-option" 
+                onClick={this.onLanguageSelect}
+                ref={this.storeLanguageReference}>{language}</div>
             )
           })}
-
-          {/*<select name="languagelist" form="languageform" onChange={this.onDropdownSelect}>
-            {this.state.languagesArray.map((language) => {
-              return (
-                <option key={language} value={language}>{language}</option>
-              )
-            })}
-          </select>*/}
         </div>
 
         <table className="results-table">
