@@ -325,3 +325,13 @@ tr:hover {
 .translation-header {
   width: 40%;
 }
+
+@media only screen and (max-width:480px) {
+  .translate-header {
+    font-size: 2em;
+  }
+
+  .results-table {
+    width: 90%;
+  } 
+}
