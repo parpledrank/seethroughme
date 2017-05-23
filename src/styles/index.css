@@ -218,7 +218,7 @@ img {
 
 .translate-header {
   font-size: 1.6em;
-  max-width: 50%;
+  max-width: 60%;
   margin: 0 0 20px 0;
 }
 
@@ -242,7 +242,7 @@ img {
 
 .results-select-language {
   padding: 0 0 1.5% 0;
-  width: 30%;
+  width: 45%;
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
@@ -250,7 +250,7 @@ img {
 }
 
 .language-option {
-  margin-right: 2%;
+  margin-right: 3%;
 }
 .language-option:hover {
   color: #6cc0e5;
