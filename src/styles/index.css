@@ -237,7 +237,6 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 980px;
   color: #292B36;
 }
 
@@ -325,3 +324,11 @@ tr:hover {
 .translation-header {
   width: 40%;
 }
+
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) {
+    .results-page {
+      min-width: 980px;
+    }
+  }
