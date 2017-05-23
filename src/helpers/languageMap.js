@@ -13,7 +13,6 @@ let languageDict = {
   Czech: 'cs',
   Danish: 'da',
   Dutch: 'nl',
-  English: 'en',
   Estonian: 'et',
   Filipino: 'tl',
   Finnish: 'fi',
